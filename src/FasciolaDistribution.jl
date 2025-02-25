@@ -16,8 +16,9 @@ export traits_str, trait_keys, load_life_history_data, define_life_history_model
 export scatter_by_group!, plot_quantiles!, plot_life_history
 export get_temperature_data, get_future_temperature_data, get_discharge_data, get_bioclim
 export get_snail_occurrences
-export quarterly_means, mapmap, writeable_dims, lazyd
+export quarterly_means, mapmap, writeable_dims, lazyd, datapath
 export mypredict
+export gcms, ssps, ghms, dates
 
 
 include("utils.jl")

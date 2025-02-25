@@ -1,3 +1,18 @@
+using Rasters.Lookups: Categorical
+# SSPs to use
+ssps = Categorical([SSP126, SSP370]) |> Dim{:ssp}
+# Global climate models
+gcms = Categorical([GFDL_ESM4, IPSL_CM6A_LR, MPI_ESM1_2_HR, UKESM1_0_LL, MRI_ESM2_0]) |> Dim{:gcm} # 
+# Global hydrological models
+ghms = Categorical(["CWatM", "JULES-W2", "MIROC-INTEG-LAND", "WaterGAP2-2e"]) |> Dim{:ghm} # 
+# timepoints
+datematrix = [
+    Date(2041) Date(2061) - Day(1)
+    Date(2081) Date(2101) - Day(1)
+]
+dates = Ti(Sampled(datematrix[:,1]; span=Explicit(datematrix))) |> Rasters.DD.format
+
+
 function get_countries(continents)
     countries = naturalearth("admin_0_countries", 10)
     countries.geometry[in.(countries.CONTINENT, Ref(continents))]
@@ -121,4 +136,31 @@ function groupbymonth(x)
     monthly_discharge = set(monthly_discharge, Ti => Dim{:month}(1:12))
     # missings became NaNs
     replace_missing(monthly_discharge, NaN)
+end
+
+using NearestNeighbors, StaticArrays
+function water_distance(ras)
+    rivers = naturalearth("ne_10m_rivers_lake_centerlines")
+    rivergeoms =filter(!isempty , rivers.geometry)
+    lakes = naturalearth("ne_10m_lakes")
+    lakegeoms = lakes.geometry
+    bm = boolmask(ras)
+    riverraster = rasterize(last, rivergeoms; to = bm, missingval = false, fill = true)
+    lakesraster = rasterize(last, lakes; to = bm, missingval = false, fill = true)
+    waterraster = riverraster .|| lakesraster
+    points = Rasters.DimPoints(waterraster) .|> SVector
+    waterpoints = points[waterraster]
+
+    water_dist_rast = Raster{Union{Missing, Float32}}(undef, dims(ras, (X,Y)); name = :water_dist)
+    fill!(water_dist_rast, missing)
+
+    kdtree = KDTree(waterpoints; leafsize = 20)
+
+    let kdtree = kdtree
+        map!(view(water_dist_rast, bm), points[bm]) do point
+            knn(kdtree, point, 1)[2][1]
+        end
+    end
+
+    return water_dist_rast
 end
