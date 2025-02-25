@@ -1,3 +1,5 @@
+datapath() = ENV["FASCIOLA_DATA_PATH"]
+
 # Just a convenient function because namedtuples of namedtuples are used throughout
 mapmap(f, x) = map(y -> map(f, y), x)
 
@@ -88,3 +90,48 @@ macro lazyd(expr::Expr, options::Union{Expr,Nothing}=nothing)
         end
     end
 end
+
+function read_predictions(ds = (gcms, ghms, dates); prefix = "", kw...)
+    times = (:current, :future)
+    fasciola = (:hepatica, :gigantica)
+    snails = (:galba, :radix)
+
+    datasets = (
+        prefix * "hydrological_suitability" => (; times),
+        prefix * "host_suitability" => (; times, snails),
+        prefix * "transmission_suitability" => (; times, fasciola),
+        prefix * "temperature_suitability" => (; times, fasciola),
+        prefix * "fasciola_risk" => (; times, fasciola)
+    )
+    
+    map(datasets) do d
+        read_or_loop(joinpath(datapath(), first(d)), last(d); ds, kw...)
+    end
+end
+function read_or_loop(path, nts; ds, kw...)
+    if isempty(nts)
+        ras = Raster(path * ".nc"; kw...)
+        set(ras, dims(ds, dims(ras))...)
+    else
+        first, rest = Iterators.peel(nts)
+        NamedTuple(K => read_or_loop(path * "_" * string(K), rest; ds, kw...) for K in first)
+    end
+end
+
+#= more advanced mapmap?
+mapmap(f, x...) = map(y -> map(f, y), x...)
+
+t = Tuple(rand(2) for i in 1:2)
+mapmap(sum, t, t)
+function f2(y...)
+    map(y...) do y...
+        @show y
+        sum(y...)
+    end
+end
+
+map(t, t) do t...
+    @show t
+end
+map(f2, t, t)
+=#
