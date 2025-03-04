@@ -1,7 +1,7 @@
 datapath() = ENV["FASCIOLA_DATA_PATH"]
 
 # Just a convenient function because namedtuples of namedtuples are used throughout
-mapmap(f, x) = map(y -> map(f, y), x)
+mapmap(f, x...) = map((y...) -> map(f, y...), x...)
 
 function quarterly_means(transmission_raster)
     grouped = Rasters.groupby(transmission_raster, Dim{:month} => CyclicBins(identity;cycle = 12, start = 12, step = 3))
@@ -91,7 +91,7 @@ macro lazyd(expr::Expr, options::Union{Expr,Nothing}=nothing)
     end
 end
 
-function read_predictions(ds = (gcms, ghms, dates); prefix = "", kw...)
+function read_predictions(ds = (gcms, ghms, dates, ssps); prefix = "", kw...)
     times = (:current, :future)
     fasciola = (:hepatica, :gigantica)
     snails = (:galba, :radix)
