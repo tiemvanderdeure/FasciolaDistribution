@@ -26,18 +26,30 @@ function linear(a, b, x)
     a + b * x
 end
 # linear between tmin and tmax, and then sigmoidally declining
-function linear_sigmoid(rate_Tmax, decl_rate, Tmin, Tmax, x; minval = zero(x))
+function linear_sigmoid(r_Tmax, k, Tmin, Tmax, x; minval = zero(x))
     if x < Tmin
         minval
     elseif x > Tmax
-        2 * rate_Tmax * GLM.logistic(decl_rate * (Tmax - x))
+        2 * r_Tmax * GLM.logistic(k * (Tmax - x))
     else
-        linear(1, (rate_Tmax - 1) / (Tmax - Tmin), x - Tmin)
+        β = (r_Tmax - 1) / (Tmax - Tmin)
+        linear(1, β, x - Tmin)
         # 1 - (1 - rate_Tmax) * (x - Tmin) / (Tmax - Tmin)
     end
 end
 
-@model function censored_gdd_hierarchical(T, upper, ids, y, ngroups = maximum(ids); Tmin_prior = Normal(10, 5), gdd_prior = LogNormal(6, 2))
+### Define the statistical models
+
+# This is used for prepatent period and hatching time
+@model function censored_gdd_hierarchical(
+    T, # temperature of observatoins
+    upper, # upper bound of the observations (experiment length)
+    ids, # group ids
+    y, # observed values
+    ngroups = maximum(ids); 
+    Tmin_prior = Normal(10, 5), 
+    gdd_prior = LogNormal(6, 2)
+)
     σ ~ Exponential(10)
     Tmin ~ Tmin_prior
     gdd_mu ~ gdd_prior
@@ -53,15 +65,18 @@ end
     end
     return FixN(gdd_time, gdd_mu, Tmin)
 end
-@model function hatching_success(T, n, k, ids, n_groups = maximum(ids); Tmin_prior = Normal(10, 5))
+
+@model function hatching_success(
+    T, n, k, ids, n_groups = maximum(ids); 
+    priors = (Tmin = Normal(10, 5), Tmax = Normal(30, 5), k = Exponential(0.5))
     Tmin ~ Tmin_prior
     Tmax ~ Normal(30, 5)
-    decl_rate ~ Exponential(0.5)
+    k ~ Exponential(0.5)
     rTmax ~ Beta(1,1) # 
     rmax ~ filldist(Beta(1,1), n_groups) # this varies per group
-    y_hat = linear_sigmoid.(rTmax, decl_rate, Tmin, Tmax, T; minval = eps()) .* rmax[ids]
+    y_hat = linear_sigmoid.(rTmax, k, Tmin, Tmax, T; minval = eps()) .* rmax[ids]
     k .~ Binomial.(n, y_hat)
-    return FixN(linear_sigmoid, rTmax, decl_rate, Tmin, Tmax)
+    return FixN(linear_sigmoid, rTmax, k, Tmin, Tmax)
 end
 @model function gaussian_rmax_varying(T, ids, n_group = maximum(ids))
     Topt ~ Normal(20, 5)
@@ -75,7 +90,10 @@ end
     return FixN(gaussian, exp(rmax_mu), Topt, breadth)
 end
 
-@model function infectionefficiency(T_bin, n, k, T_rad, ids, y, ngroups = maximum(ids; init = 0); Topt_prior = Normal(20,5), width_prior = Exponential(5))
+@model function infectionefficiency(
+    T_bin, n, k, T_rad, ids, y, ngroups = maximum(ids; init = 0); 
+    Topt_prior = Normal(20,5), width_prior = Exponential(10)
+)
     Topt ~ Topt_prior
     width ~ width_prior
     Tmax = Topt + width
