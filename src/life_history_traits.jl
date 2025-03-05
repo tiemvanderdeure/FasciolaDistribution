@@ -156,7 +156,7 @@ Turing.@model function infectionefficiency(
     )
 )
     Topt ~ priors.Topt
-    width ~ priors.width
+    width ~ priors.σ
 
     rmax_mean ~ priors.rmax
     rmax_sigma ~ censored(Exponential(1), 0, rmax_mean * (1 - rmax_mean) * 0.999)
