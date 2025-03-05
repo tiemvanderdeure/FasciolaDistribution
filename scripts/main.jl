@@ -3,6 +3,7 @@ using Rasters, RasterDataSources, Proj, NCDatasets, StatsBase,
     Random, Turing, Tables, Statistics, Dates, Rasters.Lookups
 const FD = FasciolaDistribution # any function called with FD. is from this package
 
+# this is where the data will be stored
 ENV["FASCIOLA_DATA_PATH"] = joinpath(RasterDataSources.rasterpath(), "FasciolaDistribution")
 
 isdir(datapath()) || mkdir(datapath())
@@ -46,7 +47,6 @@ end
 # Each model returns a Vector of callable structs as the generated quantites
 # Each struct contains a function and the estimated parameters at that sample. 
 # They can be called with just temperature as input and return the value of the life history trait
-
 gqs = map(life_history_models, life_history_chains) do models, chains
     map(models, chains) do m, c
         vec(generated_quantities(m, c))
@@ -54,10 +54,12 @@ gqs = map(life_history_models, life_history_chains) do models, chains
 end
 
 # For convenience later on, convert all the namedtuple of vectors to a vector of namedtuples
-# Now every element of `gqs_rt.hepatica` is a NamedTuple of callable structs, corresponding to each live history trait
 
 # Use Tables.rowtable to convert to a vector of NamedTuples
 gqs_rt = map(Tables.rowtable, gqs)
+
+# `gqs_rt.hepatica`is a vector with as element type a NamedTuple of callable structs, 
+# corresponding to each life history trait
 
 ###################################
 # Thermal suitability Projections #
@@ -196,29 +198,34 @@ predictors = map(bio) do b
     merge(b, (; waterdist))
 end
 
+predictors = bio#map(b -> b[(:bio1, :bio7, :bio12, :bio15)], bio)
+
 # Read in snail occurrence data
 # This includes some basic cleaning like selecting on year and removing duplicates
 occurrences, samplingbg = FD.get_snail_occurrences()
 
-weights = (galba_eu = 1, galba_af = 5, radix = 1)
-rois = (galba_eu = europe, galba_af = africa, radix = africa)
+# occurrences have galba split into europe and africa. All radix is Africa
+weights = (galba_eu = 1, galba_af = 3, radix = 1)
+rois = (galba_eu = europe, galba_af = africa, radix = roi)
 
-# More processing of spatial data
-# Extract bioclim data for each occurrence and de-duplicate by grid cell
+# Further processing - extract bioclimatic data, thin to one sample per grid cell,
+# sample random background points, increase the weight of African Galba.
 occ_bgs = map(keys(occurrences)) do K
     o, sbg = map((occurrences, samplingbg)) do x
-        # extract from raster and keep only one point per grid cell
+        # extract from raster
         e = extract(predictors.current, x[K], skipmissing = true, index = true, geometry = true)
+        # find unique indices (= grid cells)
         unique_indices = unique(i -> e[i].index, eachindex(e))
+        # select only unique grid cells
         e = e[unique_indices]
-        # get coordinates of the center of each grid cell
+        # split into geometry and bioclimatic data - geometry is used just for plotting
         geo = getfield.(e, :geometry)
-        # remove index so only bioclimatic variables remain
         bio_e = Base.structdiff.(e, NamedTuple{(:index,:geometry)})
         return (; geo, bio = bio_e)
     end
+    # increase the weight of African Galba by repeating the entries
     o = map(x -> repeat(x, weights[K]), o)
-    # sample background points equal to the number of presences points
+    # sample sampling background points up to the number of presences points
     n_ocs = length(o.geo)
     n_bg = length(sbg.geo)
     if n_bg > n_ocs
@@ -226,21 +233,22 @@ occ_bgs = map(keys(occurrences)) do K
         sbg = map(x -> x[indices], sbg)
     end
     
-    # draw random background points
+    # draw random background points from within the region
     b = mask(predictors.current; with = roi)
-    # Number of background samples is half the sampling effort.
-    n_unif = floor(Int, n_ocs)
-    unif = Rasters.sample(Xoshiro(0), b, n_unif, weights = cellarea(b), geometry = (X,Y), skipmissing = true)
+    n_unif = n_ocs
+    unif = Rasters.sample(
+        Xoshiro(0), b, n_unif; weights = cellarea(b), geometry = (X,Y), skipmissing = true
+        # Xoshiro(0) is for reproducibility
+    )
+    # split into geography and predictors
     ubg = (
         geo = getfield.(unif, :geometry),
         bio = Base.structdiff.(unif, NamedTuple{(:geometry,)})
     )
+    # combine sampling bg points and uniformly sampled bg points
     bg = map(vcat, sbg, ubg)
 
     return (o, bg)
-    # Manually add samples to background
-    # By default Maxnet does this internally, but we need to this manually to be able to specify weights
-#    b = merge(b, (; bio = vcat(b.bio, Base.setdiff(o.bio, b.bio)), o,b))
 end |> NamedTuple{keys(occurrences)}
 
 # Finally put african and european galba together
@@ -263,15 +271,11 @@ fig = Figure()
 ax1 = Axis(fig[1,1])
 ax2 = Axis(fig[1,2])
 plot!(ax1, host_suitability.galba, colorrange = (0,1), colormap = Reverse(:Spectral))
-plot!(ax2, host_suitability.radix)
+plot!(ax2, host_suitability.radix, colorrange = (0,1), colormap = Reverse(:Spectral))
 fig
 
-m = models.galba
-
-plot!(ax1, ocs.galba.geo, markersize = 5, color = :purple)
-
 # Map over models (species)
-host_suitability = map(bio) do b
+host_suitability = map(predictors) do b
     # Map over bioclimatic data (current and future)
     map(models) do m
         mypredict(m, b)
@@ -279,6 +283,16 @@ host_suitability = map(bio) do b
 end;
 
 bio = nothing; GC.gc()
+
+for t in (:current, :future)
+    for snail in (:galba, :radix)
+        write(
+        joinpath(datapath(), "host_suitability_$(t)_$(snail).nc"),
+        FD.writeable_dims(host_suitability[t][snail]);
+        ncwritekw...
+    )
+    end
+end
 
 hydro, host, trans, temp, risk =
     FD.read_predictions((gcms, ghms, dates); lazy = true)
@@ -360,6 +374,8 @@ filenames = joinpath.(datapath(), "mean_" .* (
 
 hydro, host, trans, temp, risk =
     FD.read_predictions((gcms, ghms, dates); lazy = true, raw = true)
+
+mean_or_loop(host, joinpath(datapath(), "mean_host_suitability"))    
 
 # lazily calculate mean for all of these
 for (x, filename) in zip((hydro, host, trans, temp, risk), filenames)
