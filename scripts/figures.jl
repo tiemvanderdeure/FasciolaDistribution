@@ -7,6 +7,7 @@ const FD = FasciolaDistribution # any function called with FD. is from this pack
 
 global snails = (:galba, :radix)
 global fasc_sps = (:hepatica, :gigantica)
+global temperatures = 5.0:0.1:40.0 # temperatures to plot
 
 
 #### Figure 1 - occurrence data
@@ -314,7 +315,6 @@ gqs_prior = map(life_history_models.hepatica, life_history_priors) do m, c
     vec(generated_quantities(m, c))
 end
 
-temperatures = 5.0:0.1:40.0
 for fasciola in fasc_sps
     dir = joinpath(supplementalspath, String(fasciola))
     isdir(dir) || mkdir(dir)
@@ -358,6 +358,46 @@ for fasciola in fasc_sps
         save(joinpath(supplementalspath, string(fasciola), "$trait.png"), fig)
     end
 end
+
+## sensitivity analysis to assumptions on egg and snail death rate
+fasciola = :hepatica
+snail_death_rates = (0.002, 0.01, 0.05)
+egg_death_rates = (0.002, 0.01, 0.05)
+colors = (hepatica = :blue, gigantica = :red)
+
+fig_sensitivity_analysis = let fig = Figure(size = (800, 600))
+    for (i, snail_death_rate) in enumerate(snail_death_rates)
+        for (j, egg_death_rate) in enumerate(egg_death_rates)
+            isbottom = i == 3
+            isleft = j == 1
+            xlabel = isbottom ?  "temperature (°C)" : ""
+            ylabel = isleft ? "cercariae per egg (rel.)" : ""
+            ax = Axis(
+                fig[i, j]; 
+                limits = (extrema(temperatures)..., 0, 1), 
+                xlabel, ylabel,
+                xticklabelsvisible = isbottom, yticklabelsvisible = isleft
+            )
+
+            for fasciola in fasc_sps
+                preds = life_cycle_model.(
+                    temperatures', gqs_rt[fasciola]; 
+                    snail_death_rate, egg_death_rate
+                )
+                # normalize these to be on a 0-1 scale
+                preds_normalized = preds ./ maximum(preds, dims = 2)
+                # plot and save
+                ls = plot_quantiles!(ax, temperatures, preds_normalized, color = colors[fasciola])
+            end
+            if i == 1
+                Label(fig[0, j], "egg death rate: $(egg_death_rate)"; tellwidth = false, font = :bold)
+            end
+        end
+        Label(fig[i, 0], "snail death rate: $(snail_death_rate)"; tellheight = false,rotation = pi/2, font = :bold)
+    end
+    fig
+end
+save(joinpath(supplementalspath, "sensitivity_analysis.png"), fig_sensitivity_analysis)
 
 
 #=
