@@ -32,7 +32,7 @@ function plot_quantiles!(
     return ls
 end
 function shade_quantiles!(ax, temperatures, preds; p, color, maxval = 1e5, minval = 1e-5)
-    pred_quantiles = quantile.(eachcol(preds), Ref(p))
+    pred_quantiles = StatsBase.quantile.(eachcol(preds), Ref(p))
     upper = min.(last.(pred_quantiles), maxval)
     lower = min.(max.(first.(pred_quantiles), minval), upper)
     band!(
@@ -66,8 +66,10 @@ function plot_life_history!(ax, data, temperatures; colormap = :rainbow, legend_
             xlabel = "temperature (°C)",
             ygridvisible = false,
             yaxisposition = :right,
+            alignmode = ax.alignmode[],
+            aspect = 1
         )
-        hidespines!(ax2); hidexdecorations!(ax2)
+        hidespines!(ax2)#; hidexdecorations!(ax2)
 
         scatter_by_group!(ax, data_N.temperature, shares, data_N.Citation; colormap)
         scatter_by_group!(
