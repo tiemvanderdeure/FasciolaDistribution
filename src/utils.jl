@@ -9,6 +9,11 @@ function quarterly_means(transmission_raster)
     transmission_raster_quarterly = cat(transmission_raster_quarterly...; dims = Dim{:quarter}(1:4))
 end
 
+f_and_dropdims(f, x; dims) = dropdims(f(x; dims); dims)
+
+geomean(a, b) = sqrt(a * b)
+
+### I/O stuff
 # to be able to write rasters
 function writeable_dims(A)
     rebuild(A; dims = writeable_dims(dims(A)))
@@ -46,7 +51,49 @@ function reformat_dims(A::AbstractRaster)
     end
     return A
 end
+# function to write nested namedtuple of rasters
+write_rasters(prefix, x; suffix = ".nc", kw...) = 
+    write_rasters(identity, predix, x; suffix, kw...)
+function write_rasters(f, prefix, x::NamedTuple; suffix = ".nc", kw...)
+    for K in keys(x)
+        write_rasters(f, prefix * "_" * string(K), x[K]; suffix, kw...)
+    end
+end
+function write_rasters(f, prefix, x::Raster; suffix = ".nc", kw...)
+    filename = prefix * suffix
+    @info "writing to $filename"
+    write(filename, writeable_dims(f(x)); kw...)
+end
 
+function read_predictions(ds = (gcms, ghms, dates, ssps); prefix = "", kw...)
+    times = (:current, :future)
+    fasciola = (:hepatica, :gigantica)
+    snails = (:galba, :radix)
+
+    datasets = (
+        prefix * "hydrological_suitability" => (; times),
+        prefix * "host_suitability" => (; times, snails),
+        prefix * "transmission_suitability" => (; times, fasciola),
+        prefix * "temperature_suitability" => (; times, fasciola),
+        prefix * "fasciola_risk" => (; times, fasciola)
+    )
+    
+    map(datasets) do d
+        read_or_loop(joinpath(datapath(), first(d)), last(d); ds, kw...)
+    end
+end
+function read_or_loop(path, nts; ds, kw...)
+    if isempty(nts)
+        ras = Raster(path * ".nc"; kw...)
+        set(ras, dims(ds, dims(ras))...)
+    else
+        first, rest = Iterators.peel(nts)
+        NamedTuple(K => read_or_loop(path * "_" * string(K), rest; ds, kw...) for K in first)
+    end
+end
+
+
+# Fix NCDatasets performance
 # See https://github.com/JuliaGeo/NCDatasets.jl/issues/274
 Base.delete_method.(methods(view, (NCDatasets.CommonDataModel.AbstractVariable, Colon)))
 
@@ -91,32 +138,6 @@ macro lazyd(expr::Expr, options::Union{Expr,Nothing}=nothing)
     end
 end
 
-function read_predictions(ds = (gcms, ghms, dates, ssps); prefix = "", kw...)
-    times = (:current, :future)
-    fasciola = (:hepatica, :gigantica)
-    snails = (:galba, :radix)
-
-    datasets = (
-        prefix * "hydrological_suitability" => (; times),
-        prefix * "host_suitability" => (; times, snails),
-        prefix * "transmission_suitability" => (; times, fasciola),
-        prefix * "temperature_suitability" => (; times, fasciola),
-        prefix * "fasciola_risk" => (; times, fasciola)
-    )
-    
-    map(datasets) do d
-        read_or_loop(joinpath(datapath(), first(d)), last(d); ds, kw...)
-    end
-end
-function read_or_loop(path, nts; ds, kw...)
-    if isempty(nts)
-        ras = Raster(path * ".nc"; kw...)
-        set(ras, dims(ds, dims(ras))...)
-    else
-        first, rest = Iterators.peel(nts)
-        NamedTuple(K => read_or_loop(path * "_" * string(K), rest; ds, kw...) for K in first)
-    end
-end
 
 #= more advanced mapmap?
 mapmap(f, x...) = map(y -> map(f, y), x...)
