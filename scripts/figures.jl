@@ -1,4 +1,5 @@
-using GLMakie, FasciolaDistribution, Rasters
+using GLMakie, FasciolaDistribution, Rasters, RasterDataSources
+import Dates: year
 
 global figurepath = joinpath("images")
 global supplementalspath = joinpath("images", "supplementary")
@@ -9,36 +10,39 @@ global snails = (:galba, :radix)
 global fasc_sps = (:hepatica, :gigantica)
 global temperatures = 5.0:0.1:40.0 # temperatures to plot
 
+hydro_all, host_all, trans_all, temp_all, risk_all =
+    FasciolaDistribution.read_predictions((gcms, ghms, dates, ssps); lazy = true)
 
-#### Figure 1 - occurrence data
-fig1 = let
-    samplingbgcoordinates = values.(mapreduce(x -> getfield(x, :geo), vcat, sbg)),
-    radixcoordiantes = values.(occs.radix.geo),
-    galbacoordinates = [values.(occs.galba_eu.geo); values.(occs.galba_af.geo)]
+hydro, host, trans, temp, risk =
+    FasciolaDistribution.read_predictions(; prefix = "mean_")
 
-    fig = Figure(size = (1000, 700))
-    ax = Axis(
-        fig[1, 1], 
-        limits = (-25, 53, -35, 73), 
-        aspect = AxisAspect(1), 
-        title = "Recorded occurrences of Lymnaeids"
-    ) # probably use geoaxis instead
-    hidedecorations!(ax); hidespines!(ax)
-    poly!(ax, countries.geometry, color = :transparent, strokewidth = 0.7)
+galbf1 = FD.f_and_dropdims(mean, view(host_all.future.galba, ssp = 2, Ti = 2); dims = :gcm)
+galbf2 = host.future.galba[ssp = 2, Ti = 2]
 
-    scatter!(samplingbgcoordinates; color = :grey, label = "Other Lymnaeids", markersize = 6)
-    scatter!(radixcoordiantes; color = :red, label = rich("Radix natalensis", font = :italic), markersize = 6)
-    scatter!(galbacoordinates; color = :blue, label = rich("Galba truncatula", font = :italic), markersize = 6)
-    axislegend(ax, position = (0.15, 0.15))
-    save(joinpath(figurepath, "figure1.png"), fig)
-    fig
+#risk = mapmap((t, r) -> set(r, dims(t)), temp, risk)
+mapmap(risk) do x
+    x[.!ismissing.(x) .&& isnan.(x)] .= missing
 end
 
-### Figure 2 - life history posteriors
+fig = Figure()
+ext = extent(risk.current.hepatica)
+ext = Extent((X = (ext.X[1] - 0.00001, ext.X[2] + 0.00001)), Y = (ext.Y[1] - 0.00001, ext.Y[2] + 0.00001))
+asp = (ext.X[2]- ext.X[1]) / (ext.Y[2] - ext.Y[1]) # aspect ratio of maps!
+
+#=
+_risk = map(temp, host) do t, h
+    map(values(t), values(h)) do t, h
+        sqrt.(t .* h)
+    end |> NamedTuple{keys(t)}
+end
+=#
+
+
+### Figure 1 - life history posteriors
 as_label(x::Symbol) = replace(string(x), "_" => " ")
 
 # plot for these temperatures
-fig2 = let temperatures = 5.0:0.1:40.0,
+fig1 = let temperatures = 5.0:0.1:40.0,
     colors = (hepatica = :blue, gigantica = :red),
     limits = (hatching_time = (0, 100), infection_efficiency = (0, 1), prepatent_period = (0, 200), cercarial_release = (0, 1500), hatching_success = (0, 1)),
     ylabels = (hatching_time = "days", infection_efficiency = "share", prepatent_period = "days", cercarial_release = "cercariae", hatching_success = "share")
@@ -80,30 +84,15 @@ fig2 = let temperatures = 5.0:0.1:40.0,
 
     fig
 end
-save(joinpath(figurepath, "figure_2.png"), fig2)
+save(joinpath(figurepath, "figure1.png"), fig1)
 
 
-### Figure 3 - current 
-hydro_all, host_all, trans_all, temp_all, risk_all =
-    FasciolaDistribution.read_predictions((gcms, ghms, dates, ssps); lazy = true)
-
-hydro, host, trans, temp, risk =
-    FasciolaDistribution.read_predictions(; prefix = "mean_")
-ext =  extent(risk.current.hepatica)
-ext = Extent((X = (ext.X[1] - 0.00001, ext.X[2] + 0.00001)), Y = (ext.Y[1] - 0.00001, ext.Y[2] + 0.00001))
-asp = (ext.X[2]- ext.X[1]) / (ext.Y[2] - ext.Y[1]) # aspect ratio of maps!
-    
-_risk = map(temp, host) do t, h
-    map(values(t), values(h)) do t, h
-        sqrt.(t .* h)
-    end |> NamedTuple{keys(t)}
-end
-
+### Figure 2 - current 
 # current conditions
 
-fig3 = let fig = Figure(fontsize = 14, size = (1100, 600))
+fig2 = let fig = Figure(fontsize = 14, size = (900, 500))
     plot_kw = (
-        colorrange = (0.001,1),
+        colorrange = (0,1),
         colormap = Reverse(:Spectral),
         lowclip = :black
     )
@@ -117,54 +106,11 @@ fig3 = let fig = Figure(fontsize = 14, size = (1100, 600))
         ax2 = Axis(fig[i, 2])
         plot!(ax2, temp.current[fasc_sp]; plot_kw...)
         ax3 = Axis(fig[i, 3])
-        plot!(ax3, trans.current[fasc_sp]; plot_kw...)
+        plot!(ax3, host.current[snail]; plot_kw...)
         ax4 = Axis(fig[i, 4])
-        plot!(ax4, host.current[snail]; plot_kw...)
-        ax5 = Axis(fig[i, 5])
-        plot!(ax5, risk.current[fasc_sp]; plot_kw...)
+        plot!(ax4, risk.current[fasc_sp]; plot_kw...)
 
-        for ax in (ax1, ax2, ax3, ax4, ax5)
-            hidedecorations!(ax); hidespines!(ax)
-        end
-        
-        Label(fig[i, 0], "Fasciola " * string(fasc_sp); tellheight = false,rotation = pi/2, font = :bold_italic)
-        rowsize!(fig.layout, 1, Aspect(1, 1/asp))
-    end
-
-    labels = ["Hydrological suitability", "Temperature suitability", "Parasite suitability", "Host suitability", "Transmission risk"]
-    for i in 1:5
-        Label(fig[0, i], labels[i]; tellwidth = false, font = :bold)
-    end
-
-    Colorbar(fig[1:2, 6]; plot_kw...)
-    resize_to_layout!(fig)
-
-    save(joinpath(figurepath, "figure3.png"), fig)
-    fig
-end
-
-#### Alternative figure 3
-fig3 = let fig = Figure(fontsize = 14, size = (600, 600))
-    snails = (:galba, :radix)
-    fasc_sps = (:hepatica, :gigantica)
-
-    plot_kw = (
-        colorrange = (0,1),
-        colormap = Reverse(:Spectral),
-    )
-
-    for i in 1:2
-        snail = snails[i]
-        fasc_sp = fasc_sps[i]
-
-        ax1 = Axis(fig[i, 1])
-        plot!(ax1, temp.current[fasc_sp]; plot_kw...)
-        ax2 = Axis(fig[i, 2])
-        plot!(ax2, host.current[snail]; plot_kw...)
-        ax3 = Axis(fig[i, 3])
-        plot!(ax3, _risk.current[fasc_sp]; plot_kw...)
-
-        for ax in (ax1, ax2, ax3)
+        for ax in (ax1, ax2, ax3, ax4)
             hidedecorations!(ax); hidespines!(ax)
         end
         
@@ -172,25 +118,24 @@ fig3 = let fig = Figure(fontsize = 14, size = (600, 600))
         rowsize!(fig.layout, i, Aspect(1, 1/asp))
     end
 
-    labels = ["Temperature suitability", "Host suitability", "Transmission risk"]
-    for i in 1:3
+    labels = ["Hydrological suitability", "Temperature suitability", "Snail host suitability", "Transmission risk"]
+    for i in 1:4
         Label(fig[0, i], labels[i]; tellwidth = false, font = :bold)
     end
 
-    Colorbar(fig[1:2, 4]; plot_kw...)
+    Colorbar(fig[1:2, 5]; plot_kw...)
     resize_to_layout!(fig)
-
-    save(joinpath(figurepath, "figure3_alt.png"), fig)
     fig
 end
+save(joinpath(figurepath, "figure2.png"), fig2)
 
 ### Future predictions
 # generates figures for temperature, host suitability and risk
 # under SSP126 and SSP370
 # risk for SSP370 is in the main manuscript, all others are in the supplementals
-(figs3, figs4), (figs5, figs6), (figs2, fig4) = let 
-    data = (temp, host, _risk)
-    legend_labels = ("Temperature suitability", "Host suitability", "Transmission risk")
+(figs3, figs4), (figs5, figs6), (figs2, fig3) = let 
+    data = (temp, host, risk)
+    legend_labels = ("Temperature suitability", "Snail host suitability", "Transmission risk")
     fasc_labels = ("F. hepatica", "F. gigantica")
     snail_labels = ("Galba truncatula", "Radix natalensis")
     x_labels = (fasc_labels, snail_labels, fasc_labels)
@@ -219,6 +164,8 @@ end
                     end
                 end
                 Label(fig[s, 0], species[s]; tellheight = false,rotation = pi/2, font = :bold_italic)
+                rowsize!(fig.layout, s, Aspect(1, 1/asp))
+                resize_to_layout!(fig)
             end
             Label(fig[0, 1], "current"; tellwidth = false, font = :bold)
 
@@ -228,7 +175,7 @@ end
         end
     end
 end
-save(joinpath(figurepath, "figure4_alt.png"), fig4)
+save(joinpath(figurepath, "figure3.png"), fig3)
 
 save(joinpath(supplementalspath, "forecast_ssp126.png"), figs2)
 save(joinpath(supplementalspath, "temp_ssp126.png"), figs3)
@@ -245,7 +192,7 @@ cattle = disaggregate(crop(cattle; to = ext), 2) # to match resolution of risk
 
 livestock = (; sheep, cattle)
 
-fig5 = let fig = Figure(fontsize = 10)
+fig4 = let fig = Figure(fontsize = 10)
 
     xticks = [0, 0.25, 0.5, 0.75, 1]
     yticks = [0, 10, 20, 50, Inf]
@@ -264,7 +211,7 @@ fig5 = let fig = Figure(fontsize = 10)
                 l_sp = keys(livestock)[l_idx]
                 plot!(
                     ax,
-                    FD.rasters_to_cmap(_risk[ti][fs][Ti = 2, ssp = 2], livestock[l_sp]; cmap)
+                    FD.rasters_to_cmap(risk[ti][fs][Ti = 2, ssp = At(SSP370)], livestock[l_sp]; cmap)
                 )           
                 hidedecorations!(ax); hidespines!(ax) 
                 if ti == 1 && f_idx == 1
@@ -278,8 +225,8 @@ fig5 = let fig = Figure(fontsize = 10)
         Label(fig[-1, (ti*2-1):ti*2], timelabel; tellwidth = false, font = :bold)
     end
     for i in 1:2
-            # aspect ratio
-            rowsize!(fig.layout, i, Aspect(1, 1/asp))
+        # aspect ratio
+        rowsize!(fig.layout, i, Aspect(1, 1/asp))
     end
     FD.bivariate_cmap_legend(
         fig[1:2, 5], cmap; 
@@ -297,9 +244,92 @@ fig5 = let fig = Figure(fontsize = 10)
     resize_to_layout!(fig)
     fig 
 end
-resize_to_layout!(fig5)
-save(joinpath(figurepath, "risk_livestock.png"), fig5)
+save(joinpath(figurepath, "risk_livestock.png"), fig4)
 
+
+### Overlap of Fasciola gigantica and Fasciola hepatica
+fig5 = let fig = Figure(fontsize = 12)
+
+    xticks = [0, 0.25, 0.5, 0.75, 1]
+    yticks = copy(xticks)
+    brewer_seqseq2 = [
+        colorant"#ffac36" colorant"black"
+        colorant"#f3f3f3" colorant"#209ebe"
+    ]
+    cmap = FD.bivariate_colormap(xticks, yticks; colors = brewer_seqseq2)
+
+    ax_current = Axis(fig[1, 1])
+    plot!(
+        ax_current,
+        FD.rasters_to_cmap(risk.current.hepatica, risk.current.gigantica; cmap)
+    )  
+    hidedecorations!(ax_current); hidespines!(ax_current)
+    Label(fig[0, 1], "Current", tellwidth = false, font = :bold)
+
+    for d in eachindex(dates)
+        ax = Axis(fig[1, d+1])
+        plot!(
+            ax,
+            FD.rasters_to_cmap(
+                risk.future.hepatica[Ti = d, ssp = At(SSP370)], 
+                risk.future.gigantica[Ti = d, ssp = At(SSP370)];
+                cmap
+            )
+        )  
+        hidedecorations!(ax); hidespines!(ax)
+        # date label
+        d1, d2 = val(Rasters.span(dates))[d, :]
+        Label(fig[0, d+1], "$(year(d1))-$(year(d2))"; tellwidth = false, font = :bold)
+    end
+    rowsize!(fig.layout, 1, Aspect(1, 1/asp))
+    resize_to_layout!(fig)
+
+    FD.bivariate_cmap_legend(
+        fig[1, 4], cmap; 
+        aspect = AxisAspect(1),
+        ylabel = "Fasciola gigantica", xlabel = "Fasciola hepatica",
+        xticklabelrotation = pi/4,
+        alignmode = Mixed(bottom = 0) # hack to include protrusions so we don't get excess white space
+    )
+
+    colsize!(fig.layout, 4, Relative(0.15))
+
+    colgap!(fig.layout, 5)
+    rowgap!(fig.layout, 5)
+    resize_to_layout!(fig)
+    fig 
+end
+save(joinpath(figurepath, "hep_gig_overlap.png"), fig5)
+
+
+#########################
+# Supplementary figures #
+#########################
+
+#### occurrence data
+figs1 = let
+    samplingbgcoordinates = values.(mapreduce(x -> getfield(x, :geo), vcat, sbg)),
+    radixcoordiantes = values.(occs.radix.geo),
+    galbacoordinates = [values.(occs.galba_eu.geo); values.(occs.galba_af.geo)]
+
+    fig = Figure(size = (1000, 700))
+    ax = Axis(
+        fig[1, 1], 
+        limits = (-25, 53, -35, 73), 
+        aspect = AxisAspect(1), 
+        title = "Recorded occurrences of Lymnaeids"
+    ) # probably use geoaxis instead
+    hidedecorations!(ax); hidespines!(ax)
+    poly!(ax, countries.geometry, color = :transparent, strokewidth = 0.7)
+
+    scatter!(samplingbgcoordinates; color = :grey, label = "Other Lymnaeids", markersize = 6)
+    scatter!(radixcoordiantes; color = :red, label = rich("Radix natalensis", font = :italic), markersize = 6)
+    scatter!(galbacoordinates; color = :blue, label = rich("Galba truncatula", font = :italic), markersize = 6)
+    axislegend(ax, position = (0.15, 0.15))
+    save(joinpath(figurepath, "figure1.png"), fig)
+    fig
+end
+save(joinpath(supplementalspath, "occurrences.tif"), figs1)
 
 #### Supplementals for life history traits
 ### plot life history trait data and posterior estimates of curves against temperature
@@ -398,6 +428,31 @@ fig_sensitivity_analysis = let fig = Figure(size = (800, 600))
     fig
 end
 save(joinpath(supplementalspath, "sensitivity_analysis.png"), fig_sensitivity_analysis)
+
+
+#### Predictions per model
+for f in fasc_sps
+    rfh = risk_all.future[f][Ti = 2, ssp = 2]
+    fig_allmodels = let fig = Figure(fontsize = 8)
+        for (i, gcm) in enumerate(dims(rfh, :gcm))
+            for (j, ghm) in enumerate(dims(rfh, :ghm))
+                ax = Axis(fig[j,i])
+                plot!(ax, rfh[gcm = At(gcm), ghm = At(ghm)], colorrange = (0,1), colormap = Reverse(:Spectral))
+                hidespines!(ax); hidedecorations!(ax)
+                if i == 1
+                    Label(fig[j,0], string(ghm), rotation = pi/2, tellheight = false)
+                end
+            end
+            Label(fig[0,i], replace(string(gcm), "_" => "-"), tellwidth = false)
+            colsize!(fig.layout, i, Aspect(1, asp))
+        end
+        colgap!(fig.layout, 3)
+        rowgap!(fig.layout, 3)
+        resize_to_layout!(fig)
+        fig
+        end
+    save(joinpath(supplementalspath, "$(f)_by_gcm_ghm_SSP370_2081.png"), fig_allmodels)
+end
 
 
 #=
@@ -522,37 +577,3 @@ fig
 save("images/quarterly_transmission_hepatica_future.png", fig)
 
 =#
-
-
-@model function loop_bern()
-    y = Vector{Bool}(undef, 10)
-    p ~ Uniform(0, 1)
-    for i in 1:10
-        y[i] ~ Bernoulli(p)
-    end
-end
-
-model = loop_bern() | (; y = trues(10))
-sample(model, NUTS(), 1000)
-
-@model function demo_mv(::Type{TV}=Float64) where {TV}
-    m = Vector{TV}(undef, 2)
-    m .~ Normal.([1.0,1.0], [1.0,1.0])
-    return m
-end
-
-model = demo_mv();
-
-conditioned_model = condition(model, m = [2.0, 1.0]);
-conditioned_model = model | (; m = [missing, 2.0])
-sample(conditioned_model, NUTS(), 10)
-
-@model function demo_mv(m)
- #   m = Vector{Float64}(undef, 2)
-    m[1] ~ Normal(0, 1)
-    m[2] ~ Normal(0, 1)
-end
-
-model = demo_mv(rand(2))# | (; m = [1, 2])
-sample(model, NUTS(), 1000)
-sample(demo_mv() | m = [1, 2], NUTS(), 1000)
