@@ -1,5 +1,33 @@
-using SummaryTables, WriteDocx, Printf
+using SummaryTables, WriteDocx, Printf, DataFrames
 global supplementary_tablespath = joinpath("images", "supplementary")
+
+### Table with performance
+using CSV, DataFrames, Printf
+evaluations = mapreduce(vcat, ("galba", "radix")) do sp
+  ev = CSV.read(joinpath("images", "evaluation_$sp.csv"), DataFrame)
+  ev.species .= sp
+  return ev
+end
+sort!(evaluations, :dataset)
+
+measures = unique(evaluations.measure)
+cells_header = [Cell("Species", bold = true); Cell.(uppercase.(measures), bold = true)]
+cells_species = Cell.(["G. truncatula", "R. natalensis"], italic = true)
+scores_cells = [
+    @sprintf "%1.2f (%1.2f)" (
+        filter(r -> r.measure == m && r.species == sp, evaluations).scores...
+    ) for sp in ("galba", "radix"), m in measures
+] .|> Cell
+
+tables_eval = Table([cells_header'; hcat(cells_species, scores_cells)], header = 1)
+WriteDocx.save(
+    joinpath(supplementary_tablespath, "SDM_evaluation.docx"), 
+    WriteDocx.Document(
+        WriteDocx.Body(
+            [WriteDocx.Section([SummaryTables.to_docx(tables_eval)])]
+        )
+    )
+)
 
 ### Table with studies and what life history traits they contribute with
 
@@ -34,7 +62,7 @@ df.Trait = join.(df.Trait, ", ")
 
 # conver to a Table
 cells1 = hcat(Cell.(df.Citation), Cell.(df.Species), Cell.(df.Trait))
-table1 = Table([Cell.(["Citation", "Species", "Trait"])'; cells1], header = 1)
+tables1 = Table([Cell.(["Citation", "Species", "Trait"], bold = true)'; cells1], header = 1)
 
 ### Table with posterior distributions for supplementary materials
 
@@ -74,33 +102,35 @@ posterior_tables = map(trait_keys) do trait
     Table([top_row; [param_cells datacells priorcells]])
 end |> NamedTuple{trait_keys}
 
-tables = mapreduce(vcat, enumerate(trait_keys)) do (i, K)
+
+### export
+citation_table = WriteDocx.Section(
     [
         WriteDocx.Paragraph([
-            WriteDocx.Run([WriteDocx.Text("Table $i: $K")]),
+        WriteDocx.Run([WriteDocx.Text("Table 1: Studies contributing to life history traits")]),
+        ]),
+        SummaryTables.to_docx(tables1)     
+   ]
+)
+
+posterior_tables_w = mapreduce(vcat, enumerate(trait_keys)) do (i, K)
+    [
+        WriteDocx.Paragraph([
+            WriteDocx.Run([WriteDocx.Text("Table $(i+1): $K")]),
         ]),
         SummaryTables.to_docx(posterior_tables[K])
     ]
 end |> WriteDocx.Section
 
-tables = WriteDocx.Section(SummaryTables.to_docx.(collect(posterior_tables)))
 
 WriteDocx.save(
     joinpath(supplementary_tablespath, "posterior_tables.docx"), 
-    WriteDocx.Document(WriteDocx.Body([tables]))
-)
-
-supplementals = W.Document(
-    W.Body([
-        W.Section([
-            W.Paragraph([
-                W.Run([W.Text("Table 1")]),
-            ]),
-            SummaryTables.to_docx(table1),
-            W.Paragraph([
-                W.Run([W.Text("Table 2")]),
-            ]),
-            SummaryTables.to_docx(table2),
-        ]),
-    ]),
+    WriteDocx.Document(
+        WriteDocx.Body(
+            [
+                citation_table,
+                posterior_tables_w
+            ]
+        )
+    )
 )
