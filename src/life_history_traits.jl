@@ -6,7 +6,7 @@
 isvalidunit(unit) = in(unit, ("days", "N", "cercariae/snail")) || Base.contains("radioactivity")(unit)
 
 function load_life_history_data()
-    data = CSV.read("data/life_history.csv", DataFrame)
+    data = CSV.read(joinpath(@__DIR__, "..", "data", "life_history.csv"), DataFrame)
     data_incl = filter(row -> row.include && isvalidunit(row.unit), data)
     disallowmissing!(data_incl, [:temperature, :observation])
     data_gig = filter(row -> !ismissing(row.fasciola) && row.fasciola == "gigantica", data_incl)
@@ -30,7 +30,7 @@ function load_life_history_data()
 end
 
 function life_history_citations()
-    lifehistorybib = BibParser.parse_file("data/life history.bib", check = :none)
+    lifehistorybib = BibParser.parse_file(joinpath(@__DIR__, "..", "data", "life history.bib"), check = :none)
 
     key_to_citation = map(keys(lifehistorybib), values(lifehistorybib)) do key, bibentry
         authors = bibentry.authors
@@ -223,7 +223,7 @@ Turing.@model function hatching_success(
     rTmax ~ priors.r_Tmax
     rmax ~ Turing.filldist(priors.rmax, n_groups)
     y_hat = linear_sigmoid.(rTmax, decl_rate, Tmin, Tmax, T; minval = eps()) .* rmax[ids]
-    k .~ Binomial.(n, y_hat)
+    k ~ product_distribution(Binomial.(n, y_hat))
     return FixN(linear_sigmoid, rTmax, decl_rate, Tmin, Tmax)
 end
 
