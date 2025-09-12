@@ -1,5 +1,7 @@
-using GLMakie, FasciolaDistribution, Rasters, RasterDataSources
+using CairoMakie, FasciolaDistribution, Rasters, RasterDataSources, Statistics
 import Dates: year
+const FD = FasciolaDistribution
+ENV["FASCIOLA_DATA_PATH"] = joinpath(RasterDataSources.rasterpath(), "FasciolaDistribution")
 
 global figurepath = joinpath("images")
 global supplementalspath = joinpath("images", "supplementary")
@@ -11,23 +13,19 @@ global fasc_sps = (:hepatica, :gigantica)
 global temperatures = 5.0:0.1:40.0 # temperatures to plot
 
 hydro_all, host_all, trans_all, temp_all, risk_all =
-    FasciolaDistribution.read_predictions((gcms, ghms, dates, ssps); lazy = true)
+    FD.read_predictions((FD.gcms, FD.ghms, FD.dates, FD.ssps); lazy = true)
 
 hydro, host, trans, temp, risk =
-    FasciolaDistribution.read_predictions(; prefix = "mean_")
-
-galbf1 = FD.f_and_dropdims(mean, view(host_all.future.galba, ssp = 2, Ti = 2); dims = :gcm)
-galbf2 = host.future.galba[ssp = 2, Ti = 2]
+    FD.read_predictions(; prefix = "mean_")
 
 #risk = mapmap((t, r) -> set(r, dims(t)), temp, risk)
-mapmap(risk) do x
+FD.mapmap(risk) do x
     x[.!ismissing.(x) .&& isnan.(x)] .= missing
 end
 
-fig = Figure()
 ext = extent(risk.current.hepatica)
-ext = Extent((X = (ext.X[1] - 0.00001, ext.X[2] + 0.00001)), Y = (ext.Y[1] - 0.00001, ext.Y[2] + 0.00001))
-asp = (ext.X[2]- ext.X[1]) / (ext.Y[2] - ext.Y[1]) # aspect ratio of maps!
+global asp = (ext.X[2]- ext.X[1]) / (ext.Y[2] - ext.Y[1]) # aspect ratio of maps!
+global px_per_unit = 5 # for high-res images
 
 #=
 _risk = map(temp, host) do t, h
@@ -84,7 +82,7 @@ fig1 = let temperatures = 5.0:0.1:40.0,
 
     fig
 end
-save(joinpath(figurepath, "figure1.png"), fig1)
+save(joinpath(figurepath, "figure1.png"), fig1; px_per_unit)
 
 
 ### Figure 2 - current 
@@ -127,7 +125,7 @@ fig2 = let fig = Figure(fontsize = 14, size = (900, 500))
     resize_to_layout!(fig)
     fig
 end
-save(joinpath(figurepath, "figure2.png"), fig2)
+save(joinpath(figurepath, "figure2.png"), fig2; px_per_unit)
 
 ### Future predictions
 # generates figures for temperature, host suitability and risk
@@ -174,26 +172,48 @@ save(joinpath(figurepath, "figure2.png"), fig2)
             fig
         end
     end
+end;
+save(joinpath(figurepath, "figure3.png"), fig3; px_per_unit)
+
+save(joinpath(supplementalspath, "forecast_ssp126.png"), figs2; px_per_unit)
+save(joinpath(supplementalspath, "temp_ssp126.png"), figs3; px_per_unit)
+save(joinpath(supplementalspath, "temp_ssp370.png"), figs4; px_per_unit)
+save(joinpath(supplementalspath, "host_ssp126.png"), figs5; px_per_unit)
+save(joinpath(supplementalspath, "host_ssp370.png"), figs6; px_per_unit)
+
+## Supplemental with hydrological suitability
+for ssp in ssps
+    fig = Figure(fontsize = 14, size = (800, 600))
+    kws = (
+        colorrange = (0,1),
+        colormap = Reverse(:Spectral)
+    )
+
+    ax_current = Axis(fig[1, 1])
+    plot!(ax_current, hydro.current; kws...)
+    hidedecorations!(ax_current); hidespines!(ax_current)
+
+    for d in eachindex(dates)
+        ax = Axis(fig[1, d+1])
+        plot!(ax, hydro.future[ssp = At(ssp), Ti = d] .- hydro.current; kws...)
+        hidedecorations!(ax); hidespines!(ax)
+        d1, d2 = val(Rasters.span(dates))[d, :]
+        Label(fig[0, d+1], "$(year(d1))-$(year(d2))"; tellwidth = false, font = :bold)
+    end
+    Label(fig[0, 1], "current"; tellwidth = false, font = :bold)
+    Colorbar(fig[1, 4]; kws..., label = "Hydrological suitability")
+
+    rowsize!(fig.layout, 1, Aspect(1, 1/asp))
+    resize_to_layout!(fig)
+
+    save(joinpath(supplementalspath, "hydro_$(lowercase(string(ssp))).png"), fig, px_per_unit = 3)
 end
-save(joinpath(figurepath, "figure3.png"), fig3)
-
-save(joinpath(supplementalspath, "forecast_ssp126.png"), figs2)
-save(joinpath(supplementalspath, "temp_ssp126.png"), figs3)
-save(joinpath(supplementalspath, "temp_ssp370.png"), figs4)
-save(joinpath(supplementalspath, "host_ssp126.png"), figs5)
-save(joinpath(supplementalspath, "host_ssp370.png"), figs6)
-
 
 ### Overlap of fasciola risk and livestock
-sheep = Raster("D:/data/FAO/GLW4-2020.D-DA.SHP.tif")
-cattle = Raster("D:/data/FAO/GLW4-2020.D-DA.CTL.tif")
-sheep = disaggregate(crop(sheep; to = ext), 2) # to match resolution of risk
-cattle = disaggregate(crop(cattle; to = ext), 2) # to match resolution of risk
-
-livestock = (; sheep, cattle)
+livestock = FD.get_livestock_data(; lazy = true)
+livestock = disaggregate(read(crop(livestock; to = ext, atol = 1e-4)), 2) # to match resolution of risk
 
 fig4 = let fig = Figure(fontsize = 10)
-
     xticks = [0, 0.25, 0.5, 0.75, 1]
     yticks = [0, 10, 20, 50, Inf]
     tolochko_redblue = [
@@ -243,8 +263,8 @@ fig4 = let fig = Figure(fontsize = 10)
     rowgap!(fig.layout, 5)
     resize_to_layout!(fig)
     fig 
-end
-save(joinpath(figurepath, "risk_livestock.png"), fig4)
+end;
+save(joinpath(figurepath, "figure4.png"), fig4, px_per_unit = 10)
 
 
 ### Overlap of Fasciola gigantica and Fasciola hepatica
@@ -299,7 +319,7 @@ fig5 = let fig = Figure(fontsize = 12)
     resize_to_layout!(fig)
     fig 
 end
-save(joinpath(figurepath, "hep_gig_overlap.png"), fig5)
+save(joinpath(figurepath, "figure5.png"), fig5; px_per_unit)
 
 
 #########################
@@ -308,28 +328,28 @@ save(joinpath(figurepath, "hep_gig_overlap.png"), fig5)
 
 #### occurrence data
 figs1 = let
-    samplingbgcoordinates = values.(mapreduce(x -> getfield(x, :geo), vcat, sbg)),
-    radixcoordiantes = values.(occs.radix.geo),
-    galbacoordinates = [values.(occs.galba_eu.geo); values.(occs.galba_af.geo)]
+    samplingcoordinates = mapreduce(x -> values.(x), vcat, samplingbg)
+    snailcoordinates = map(x -> x.geo, ocs)
 
-    fig = Figure(size = (1000, 700))
+    fig = Figure(size = (500, 700))
     ax = Axis(
         fig[1, 1], 
         limits = (-25, 53, -35, 73), 
-        aspect = AxisAspect(1), 
         title = "Recorded occurrences of Lymnaeids"
     ) # probably use geoaxis instead
     hidedecorations!(ax); hidespines!(ax)
     poly!(ax, countries.geometry, color = :transparent, strokewidth = 0.7)
 
-    scatter!(samplingbgcoordinates; color = :grey, label = "Other Lymnaeids", markersize = 6)
-    scatter!(radixcoordiantes; color = :red, label = rich("Radix natalensis", font = :italic), markersize = 6)
-    scatter!(galbacoordinates; color = :blue, label = rich("Galba truncatula", font = :italic), markersize = 6)
+    scatter!(samplingcoordinates; color = :grey, label = "Other Lymnaeids", markersize = 6)
+    scatter!(snailcoordinates.radix; color = :red, label = rich("Radix natalensis", font = :italic), markersize = 6)
+    scatter!(snailcoordinates.galba; color = :blue, label = rich("Galba truncatula", font = :italic), markersize = 6)
     axislegend(ax, position = (0.15, 0.15))
-    save(joinpath(figurepath, "figure1.png"), fig)
+    colsize!(fig.layout, 1, Aspect(1, asp))
+    resize_to_layout!(fig)
+
     fig
-end
-save(joinpath(supplementalspath, "occurrences.tif"), figs1)
+end;
+save(joinpath(supplementalspath, "occurrences.png"), figs1; px_per_unit)
 
 #### Supplementals for life history traits
 ### plot life history trait data and posterior estimates of curves against temperature
@@ -453,127 +473,3 @@ for f in fasc_sps
         end
     save(joinpath(supplementalspath, "$(f)_by_gcm_ghm_SSP370_2081.png"), fig_allmodels)
 end
-
-
-#=
-fig = Figure()
-Label(
-    fig[0, 1:4], 
-    rich("Climatic suitability for ", rich("Fasciola", font = :bold_italic), " transmission"); 
-    font = :bold, fontsize = 16)
-season_labels = ["Dec-Feb", "Mar-May", "Jun-Aug", "Sep-Nov"]
-colorrange = (0,1); cmap = Reverse(:Spectral)
-maps = GridLayout(fig[1:2, 1:4])
-
-for (i, fasciola) in enumerate(keys(transmission_quarterly))
-    transmission_raster_quarterly = transmission_quarterly[fasciola]
-    Label(fig[i, 0], string(fasciola); tellheight = false,rotation = pi/2, font = :bold_italic)
-    for q in 1:4
-        ax = Axis(maps[i, q])
-        plot!(ax, @view(transmission_raster_quarterly[Dim{:quarter}(q)]); colorrange, colormap = cmap)
-        plot!(ax, desert_mask; colormap = [:lightgrey, :transparent])
-        hidedecorations!(ax); hidespines!(ax)
-        if i == 1
-            Label(fig[1, q, Top()], season_labels[q]; tellwidth = false, font = :bold)
-        end
-    end
-end
-rowgap!(maps, 0); colgap!(maps, 0)
-fig
-save("images/quarterly_transmission.png", fig)
-
-
-# for on the website
-fasciola = :hepatica
-host = :galba
-times = [:current, :future]
-countries_af = get_countries()
-
-for (fasciola, host) in zip(keys(life_history_data), keys(occurrences))
-
-    fig = Figure()
-
-    maps = GridLayout(fig[1, 1])
-
-    colorrange = (0,1); cmap = Reverse(:Spectral)
-    ext = Rasters.Extents.extent(bio.current)
-    limits = (ext.X..., ext.Y...)
-
-    for (i, time) in enumerate(times)
-        Label(maps[i, 0], string(time); tellheight = false,rotation = pi/2, font = :bold)
-        ax = Axis(maps[i,1]; limits, title = ifelse(i == 1, "host suitability", ""))
-        plot!(ax, host_suitability[time][host]; colorrange, colormap = cmap)
-
-        ax2 = Axis(maps[i,2]; limits, title = ifelse(i == 1, "transmission strength", ""))
-        plot!(ax2, temperature_suitability_annual[time][fasciola]; colorrange, colormap = cmap)
-
-        ax3 = Axis(maps[i,3]; limits, title = ifelse(i == 1, "infection risk", ""))
-        plot!(ax3, temperature_suitability_annual[time][fasciola] .* host_suitability[time][host]; colorrange, colormap = cmap)
-
-        for ax in (ax, ax2, ax3)
-            hidespines!(ax); hidedecorations!(ax)
-            poly!(ax, countries_af, color = :transparent, strokewidth = 0.3)
-        end
-    end
-
-    Colorbar(maps[1:2,4]; colorrange, colormap = cmap)
-
-    save("images/infectionrisk_website_$fasciola.png", fig)
-end
-
-## Current climate, quarterly transmission
-fig = Figure()
-Label(
-    fig[0, 1:4], 
-    rich("Climatic suitability for ", rich("Fasciola", font = :bold_italic), " transmission"); 
-    font = :bold, fontsize = 16)
-season_labels = ["Dec-Feb", "Mar-May", "Jun-Aug", "Sep-Nov"]
-colorrange = (0,1); cmap = Reverse(:Spectral)
-maps = GridLayout(fig[1:2, 1:4])
-
-for (i, fasciola) in enumerate(keys(transmission_quarterly))
-    transmission_raster_quarterly = transmission_quarterly[fasciola]
-    Label(fig[i, 0], string(fasciola); tellheight = false,rotation = pi/2, font = :bold_italic)
-    for q in 1:4
-        ax = Axis(maps[i, q])
-        plot!(ax, @view(transmission_raster_quarterly[Dim{:quarter}(q)]); colorrange, colormap = cmap)
-        plot!(ax, desert_mask; colormap = [:lightgrey, :transparent])
-        hidedecorations!(ax); hidespines!(ax)
-        if i == 1
-            Label(fig[1, q, Top()], season_labels[q]; tellwidth = false, font = :bold)
-        end
-    end
-end
-rowgap!(maps, 0); colgap!(maps, 0)
-fig
-save("images/quarterly_transmission.png", fig)
-
-
-## Future climate, hepatica, quarterly transmission
-fig = Figure()
-Label(
-    fig[0, 1:4], 
-    rich("Climatic suitability for ", rich("Fasciola hepatica", font = :bold_italic), " transmission"); 
-    font = :bold, fontsize = 16)
-season_labels = ["Dec-Feb", "Mar-May", "Jun-Aug", "Sep-Nov"]
-colorrange = (0,1); cmap = Reverse(:Spectral)
-maps = GridLayout(fig[1:2, 1:4])
-
-time = ["current", "2081-2100"]
-for (i, transmission_raster_quarterly) in enumerate((transmission_quarterly.hepatica, transmission_quarterly_future.hepatica))
-    Label(fig[i, 0], time[i]; tellheight = false,rotation = pi/2, font = :bold)
-    for q in 1:4
-        ax = Axis(maps[i, q])
-        plot!(ax, @view(transmission_raster_quarterly[Dim{:quarter}(q)]); colorrange, colormap = cmap)
-        plot!(ax, desert_mask; colormap = [:lightgrey, :transparent])
-        hidedecorations!(ax); hidespines!(ax)
-        if i == 1
-            Label(fig[1, q, Top()], season_labels[q]; tellwidth = false, font = :bold)
-        end
-    end
-end
-rowgap!(maps, 10); colgap!(maps, 10)
-fig
-save("images/quarterly_transmission_hepatica_future.png", fig)
-
-=#
