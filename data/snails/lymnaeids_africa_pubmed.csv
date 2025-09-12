@@ -1,0 +1,238 @@
+pmid,longitude,latitude,country,vector__count,vector__present,year,vector__genus,vector__species,vector__collection_method,vector__identification_method,gen__basis_of_record
+24650420,36.68817139,-3.347952127,Tanzania,215,1,2012,Lymnaea,natalensis,manual,Morphology,Material sample
+25664810,31.20495224,29.33410263,Egypt,,1,2013,Pseudosuccinea,columella,manual,Morphology,Material sample
+25973199,-7.97913456,12.61101723,Mali,66,1,2011,Lymnaea,natalensis,scoop net,Morphology,Material sample
+25973199,-7.97913456,12.61101723,Mali,18,1,2012,Lymnaea,natalensis,scoop net,Morphology,Material sample
+23327318,28.17749405,-25.58400536,South Africa,39,1,2007,Lymnaea,natalensis,manual,Morphology,Material sample
+23327318,28.17749405,-25.58400536,South Africa,38,1,2008,Lymnaea,natalensis,manual,Morphology,Material sample
+23327318,28.17749405,-25.58400536,South Africa,5,1,2009,Lymnaea,natalensis,manual,Morphology,Material sample
+23327318,28.17749405,-25.58400536,South Africa,123,1,2010,Lymnaea,natalensis,manual,Morphology,Material sample
+23327318,27.16442108,-26.19795227,South Africa,18,1,2007,Lymnaea,natalensis,manual,Morphology,Material sample
+23327318,27.16442108,-26.19795227,South Africa,21,1,2008,Lymnaea,natalensis,manual,Morphology,Material sample
+23327318,27.16442108,-26.19795227,South Africa,57,1,2009,Lymnaea,natalensis,manual,Morphology,Material sample
+23327318,27.16442108,-26.19795227,South Africa,107,1,2010,Lymnaea,natalensis,manual,Morphology,Material sample
+26152614,35.16231537,-8.115317345,Tanzania,,1,2013,Lymnaea,natalensis,scoop net,Morphology,Material sample
+26152614,35.67950058,-8.020683289,Tanzania,,1,2013,Lymnaea,natalensis,scoop net,Morphology,Material sample
+26152614,35.38746643,-7.949082851,Tanzania,,1,2013,Lymnaea,natalensis,scoop net,Morphology,Material sample
+26152614,35.77528381,-7.908267021,Tanzania,,1,2013,Lymnaea,natalensis,scoop net,Morphology,Material sample
+26152614,35.49209976,-7.775400162,Tanzania,,1,2013,Lymnaea,natalensis,scoop net,Morphology,Material sample
+26152614,35.79264832,-7.537350178,Tanzania,,1,2013,Lymnaea,natalensis,scoop net,Morphology,Material sample
+26152614,35.48636627,-7.544499874,Tanzania,,1,2013,Lymnaea,natalensis,scoop net,Morphology,Material sample
+27049700,8.795556068,34.45360947,Tunisia,5010,1,2012,Galba,truncatula,manual,Morphology,Material sample
+27225321,28.3133316,-15.38939857,Zambia,20,1,2014,Lymnaea,natalensis,manual,Morphology,Material sample
+27762185,34.77500153,-0.109099999,Kenya,,1,2010,Ceratophallus,natalensis,manual,Morphology,Preserved specimen
+28468667,-5.019962788,7.581214905,CÃ´te d'Ivoire,7,1,2008,Lymnaea,natalensis,manual,Morphology,Material sample
+28468667,-5.008969784,7.591533184,CÃ´te d'Ivoire,3,1,2009,Lymnaea,natalensis,manual,Morphology,Material sample
+28468667,-5.019962788,7.581214905,CÃ´te d'Ivoire,5,1,2009,Lymnaea,natalensis,manual,Morphology,Material sample
+28162101,28.93984222,25.58251381,Egypt,110,1,2014,Galba,truncatula,scoop net,Morphology,Material sample
+28162101,28.99479294,25.54442978,Egypt,100,1,2014,Galba,truncatula,scoop net,Morphology,Material sample
+28162101,29.1167469,25.50164413,Egypt,150,1,2014,Galba,truncatula,scoop net,Morphology,Material sample
+28162101,29.01776886,25.51394653,Egypt,120,1,2014,Galba,truncatula,scoop net,Morphology,Material sample
+28162101,28.92522049,25.68125153,Egypt,80,1,2014,Galba,truncatula,scoop net,Morphology,Material sample
+28162101,28.8836956,25.69636345,Egypt,95,1,2014,Galba,truncatula,scoop net,Morphology,Material sample
+28162101,28.97520638,25.55729866,Egypt,76,1,2014,Galba,truncatula,scoop net,Morphology,Material sample
+28162101,28.93984222,25.58251381,Egypt,,1,2014,Radix,natalensis,scoop net,Morphology,Material sample
+28162101,28.99479294,25.54442978,Egypt,,1,2014,Radix,natalensis,scoop net,Morphology,Material sample
+28162101,29.1167469,25.50164413,Egypt,,1,2014,Radix,natalensis,scoop net,Morphology,Material sample
+28162101,29.01776886,25.51394653,Egypt,,1,2014,Radix,natalensis,scoop net,Morphology,Material sample
+28162101,28.92522049,25.68125153,Egypt,,1,2014,Radix,natalensis,scoop net,Morphology,Material sample
+28162101,28.8836956,25.69636345,Egypt,,1,2014,Radix,natalensis,scoop net,Morphology,Material sample
+28162101,28.97520638,25.55729866,Egypt,,1,2014,Radix,natalensis,scoop net,Morphology,Material sample
+31303914,34.27000809,0.475670993,Kenya,319,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31303914,34.21732712,0.568946004,Kenya,282,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31303914,34.02412415,0.25058499,Kenya,96,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31303914,34.38820267,0.703619003,Kenya,13,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31096340,28.76161575,-16.53871536,Zimbabwe,58,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.77064514,-16.53365326,Zimbabwe,19,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.78042984,-16.52857971,Zimbabwe,83,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.78787041,-16.52934074,Zimbabwe,2,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.80370903,-16.53336525,Zimbabwe,1,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.81248665,-16.53335762,Zimbabwe,15,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.81899261,-16.53251076,Zimbabwe,3,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.85216331,-16.53560448,Zimbabwe,4,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.86337471,-16.5421505,Zimbabwe,8,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.87022781,-16.54745483,Zimbabwe,14,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.8774929,-16.55368042,Zimbabwe,22,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.89768791,-16.5609169,Zimbabwe,10,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.92067337,-16.55278015,Zimbabwe,101,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31096340,28.93318558,-16.56547356,Zimbabwe,86,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+30710531,37.32537079,-0.716589987,Kenya,,1,2014,Radix,natalensis,manual,Morphology,Material sample
+30710531,35.00690079,-0.318100005,Kenya,,1,2015,Ceratophallus,natalensis,manual,Morphology,Material sample
+30710531,34.70759964,-0.094099998,Kenya,,1,2004,Ceratophallus,natalensis,manual,Morphology,Material sample
+30626428,36.54210281,7.923634052,Ethiopia,,1,2017,Lymnaea,natalensis,scoop net,Morphology,Material sample
+30626428,36.50639725,7.951329231,Ethiopia,,1,2017,Lymnaea,natalensis,scoop net,Morphology,Material sample
+32151590,34.39327621,-0.186166704,Kenya,52,1,2017,Radix,natalensis,scoop net,Morphology,Preserved specimen
+32151590,34.74972153,-0.087888896,Kenya,30,1,2017,Radix,natalensis,scoop net,Morphology,Preserved specimen
+32151590,34.19691849,-0.389027804,Kenya,76,1,2017,Radix,natalensis,scoop net,Morphology,Preserved specimen
+32203507,32.84196091,-9.242890358,Tanzania,1,1,2018,Lymnaea,natalensis,manual,Morphology,Human observation
+32203507,32.84167099,-9.265640259,Tanzania,1,1,2018,Lymnaea,natalensis,manual,Morphology,Human observation
+32203507,33.01047897,-9.012949944,Tanzania,1,1,2018,Lymnaea,natalensis,manual,Morphology,Human observation
+31801595,28.29031944,-29.51682091,Lesotho,,1,2014,Galba,mweruensis,scoop net,DNA,Material sample
+31801595,38.17837143,-4.448589802,Tanzania,,1,2014,Galba,mweruensis,scoop net,DNA,Material sample
+31801595,39.52099991,12.58650017,Ethiopia,,1,2014,Galba,mweruensis,scoop net,DNA,Material sample
+31801595,0,0,Uganda,,1,2014,Galba,mweruensis,scoop net,DNA,Material sample
+31801595,-7.866779804,31.15572929,Morocco,,1,2014,Galba,truncatula,scoop net,DNA,Material sample
+31801595,-5.339719772,32.68416977,Morocco,,1,2014,Galba,truncatula,scoop net,DNA,Material sample
+31801595,-7.153830051,31.39271927,Morocco,,1,2014,Galba,truncatula,scoop net,DNA,Material sample
+31801595,34.74232101,-0.127389997,Kenya,,1,2014,Radix,natalensis,scoop net,DNA,Material sample
+31801595,30.83879089,-24.84539032,South Africa,,1,2014,Pseudosuccinea,columella,scoop net,DNA,Material sample
+31744539,37.56270599,7.752327919,Ethiopia,447,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31744539,37.3833313,9.550000191,Ethiopia,185,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31744539,37.76183701,6.479582787,Ethiopia,25,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31744539,37.32342529,7.834220886,Ethiopia,15,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31744539,36.63602066,6.879519939,Ethiopia,75,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31640811,1.905089974,13.60474968,Niger,70,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.29358995,14.30967999,Niger,7,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.327260017,13.28717995,Niger,78,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.343199968,13.03522968,Niger,365,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.354969978,13.17605972,Niger,63,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.824370027,13.66366959,Niger,51,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.296610117,13.31995964,Niger,3,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.681730032,13.74250031,Niger,6,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.197109938,13.39008045,Niger,32,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.250130057,14.34817982,Niger,1432,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.714439988,13.68974018,Niger,12,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.370320082,13.09848022,Niger,1,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.33336997,13.29699039,Niger,1,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.877990007,13.62944031,Niger,15,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.338289976,13.27165985,Niger,23,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.361409903,13.19223976,Niger,225,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.872619987,13.61853027,Niger,124,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,2.245559931,13.33370972,Niger,6,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+31640811,1.719449997,13.70186043,Niger,16,1,2014,Radix,natalensis,scoop net,Morphology,Preserved specimen
+30773157,31.06471252,-29.60015678,South Africa,40,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Preserved specimen
+30773157,28.75497055,-31.45431709,South Africa,40,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Preserved specimen
+30773157,28.75752831,-31.50863266,South Africa,20,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Preserved specimen
+34606509,-14.85429955,13.51773262,Gambia,57,1,2018,Radix,natalensis,scoop net,Morphology,Material sample
+34606509,-14.88551712,13.67686653,Gambia,1,1,2018,Radix,natalensis,scoop net,Morphology,Material sample
+34606509,-14.86894989,13.66534996,Gambia,107,1,2018,Radix,natalensis,scoop net,Morphology,Material sample
+34516582,-15.69999981,16.45000076,Senegal,38,1,2018,Lymnaea,natalensis,manual,PCR,Material sample
+32616074,-7.468490124,7.36097002,CÃ´te d'Ivoire,7,1,2016,Lymnaea,natalensis,manual,Morphology,Material sample
+32616074,-7.543220043,6.534930229,CÃ´te d'Ivoire,54,1,2016,Lymnaea,natalensis,manual,Morphology,Material sample
+32616074,-7.395659924,7.174369812,CÃ´te d'Ivoire,1,1,2016,Lymnaea,natalensis,manual,Morphology,Material sample
+32616074,-6.81554985,6.782949924,CÃ´te d'Ivoire,21,1,2016,Lymnaea,natalensis,manual,Morphology,Material sample
+32616074,-7.187109947,6.742459774,CÃ´te d'Ivoire,20,1,2016,Lymnaea,natalensis,manual,Morphology,Material sample
+32513295,38.43592834,7.056350231,Ethiopia,118,1,2018,Lymnaea,natalensis,scoop net,Morphology,Preserved specimen
+32513295,38.43592834,7.056350231,Ethiopia,384,1,2018,Lymnaea,truncatula,scoop net,Morphology,Preserved specimen
+32513295,38.83332825,8,Ethiopia,464,1,2018,Lymnaea,natalensis,scoop net,Morphology,Preserved specimen
+32513295,38.83332825,8,Ethiopia,23,1,2018,Lymnaea,truncatula,scoop net,Morphology,Preserved specimen
+36576925,30.96666718,27.31666756,Egypt,,1,2020,Radix,auricularia,manual,Morphology,Material sample
+35939493,36.83234024,11.26959991,Ethiopia,,1,2021,Lymnaea,natalensis,manual,Morphology,Material sample
+35939493,37.04167175,11.36972046,Ethiopia,,1,2021,Lymnaea,natalensis,manual,Morphology,Material sample
+35939493,37.15006638,11.42600918,Ethiopia,,1,2021,Lymnaea,natalensis,manual,Morphology,Material sample
+34412627,28.78453827,-16.52538872,Zimbabwe,60,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+34412627,28.93270874,-16.5604763,Zimbabwe,43,1,2018,Pseudosuccinea,columella,scoop net,DNA,Material sample
+34412627,31.01880646,-17.24663925,Zimbabwe,17,1,2018,Radix,natalensis,scoop net,DNA,Material sample
+34991728,20.48822021,19.05600929,Chad,6,1,2019,Radix,natalensis,scoop net,Morphology,Preserved specimen
+34991728,20.51419067,19.05405045,Chad,19,1,2019,Radix,natalensis,scoop net,Morphology,Preserved specimen
+34991728,20.89299965,18.92939949,Chad,7,1,2019,Radix,natalensis,scoop net,Morphology,Preserved specimen
+34991728,20.9116993,18.91469955,Chad,3,1,2019,Radix,natalensis,scoop net,Morphology,Preserved specimen
+30034806,41.65735626,8.934087753,Ethiopia,,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+30034806,41.5880661,9.140354156,Ethiopia,,1,2016,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37839684,32.25815582,31.2556572,Egypt,1,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37839684,31.8646946,31.2344532,Egypt,7,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.92366505,10.83742809,Cameroon,218,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.92221355,10.84661198,Cameroon,11,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.92280102,10.85440636,Cameroon,151,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.9226799,10.86126518,Cameroon,184,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.91874981,10.87007618,Cameroon,2,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.91895485,10.87928677,Cameroon,62,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.93445683,10.9306612,Cameroon,144,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.93461704,10.96446133,Cameroon,133,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37900305,14.99610615,10.9836216,Cameroon,478,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37459286,-5.627289772,9.900989532,CÃ´te d'Ivoire,7,1,2018,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37459286,-5.277880192,9.506520271,CÃ´te d'Ivoire,7,1,2018,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37459286,-5.949505806,9.281712532,CÃ´te d'Ivoire,1,1,2018,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37459286,-5.436009884,9.52779007,CÃ´te d'Ivoire,1,1,2018,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37459286,-5.708549976,9.204259872,CÃ´te d'Ivoire,25,1,2018,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37459286,-5.885280132,9.020529747,CÃ´te d'Ivoire,2,1,2018,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37188748,30.27480316,-30.54363823,South Africa,245,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37188748,30.8499012,-29.80518723,South Africa,446,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37188748,32.30026627,-27.61847496,South Africa,159,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37188748,31.29426193,-27.81138992,South Africa,60,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37188748,30.55883408,-28.58569527,South Africa,27,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37188748,29.65799332,-28.71919632,South Africa,212,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+37188748,31.1421032,-29.2734127,South Africa,46,1,2020,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36977155,37.65710449,7.728240967,Ethiopia,93,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36977155,38.39202499,8.116872787,Ethiopia,159,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+39114064,6.593599796,9.531399727,Nigeria,1,1,2022,Lymnaea,natalensis,kick sampling,Morphology,Preserved specimen
+39114064,6.58949995,9.534600258,Nigeria,2,1,2022,Lymnaea,natalensis,kick sampling,Morphology,Preserved specimen
+39114064,6.581200123,9.535099983,Nigeria,1,1,2022,Lymnaea,natalensis,kick sampling,Morphology,Preserved specimen
+39114064,6.575200081,9.533800125,Nigeria,3,1,2022,Lymnaea,natalensis,kick sampling,Morphology,Preserved specimen
+38773521,31.87534523,-21.05723381,Zimbabwe,2,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.805933,-20.97786522,Zimbabwe,1,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.64937782,-21.07605743,Zimbabwe,3,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.67567635,-21.07463074,Zimbabwe,13,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.67567635,-21.07463074,Zimbabwe,5,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.68670464,-21.07931328,Zimbabwe,17,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.38123512,-20.99022102,Zimbabwe,10,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.33167458,-20.83144379,Zimbabwe,10,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.33167458,-20.83144379,Zimbabwe,2,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.48496437,-18.49279976,Zimbabwe,112,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.4973011,-18.48839378,Zimbabwe,20,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.4973011,-18.48839378,Zimbabwe,1,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.49251747,-18.49123192,Zimbabwe,19,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.50790596,-18.4489994,Zimbabwe,10,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.50790596,-18.4489994,Zimbabwe,1,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.51893425,-18.44170952,Zimbabwe,5,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.51893425,-18.44170952,Zimbabwe,1,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.51087952,-18.43552399,Zimbabwe,16,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.50682831,-18.4684391,Zimbabwe,2,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.47938347,-18.47896957,Zimbabwe,18,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.49918938,-18.47751999,Zimbabwe,8,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.5046711,-18.47891808,Zimbabwe,7,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.50253296,-18.43719292,Zimbabwe,10,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.51563644,-18.43562317,Zimbabwe,3,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.49351883,-18.47279358,Zimbabwe,4,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.51000404,-18.43701553,Zimbabwe,48,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.51000404,-18.43701553,Zimbabwe,2,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.51218224,-18.48307228,Zimbabwe,17,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.4899044,-18.47205162,Zimbabwe,17,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.48829842,-18.47046471,Zimbabwe,39,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.48703384,-18.48024559,Zimbabwe,2,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38773521,31.48703384,-18.48024559,Zimbabwe,1,1,2021,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38773521,31.5001564,-18.47463989,Zimbabwe,44,1,2021,Radix,natalensis,scoop net,Morphology,Material sample
+38452963,27.99388885,-26.1760006,South Africa,11,1,2021,Radix,natalensis,manual,Morphology,Material sample
+38452963,27.99388885,-26.1760006,South Africa,15,1,2021,Pseudosuccinea,columella,manual,Morphology,Material sample
+38452963,27.99388885,-26.1760006,South Africa,52,1,2022,Radix,natalensis,manual,Morphology,Material sample
+38452963,27.98961067,-26.18080521,South Africa,14,1,2022,Pseudosuccinea,columella,manual,Morphology,Material sample
+38452963,27.99388885,-26.1760006,South Africa,70,1,2022,Pseudosuccinea,columella,manual,Morphology,Material sample
+38452963,28.00580597,-26.15030479,South Africa,12,1,2022,Pseudosuccinea,columella,manual,Morphology,Material sample
+38452963,27.85294533,-25.96344376,South Africa,36,1,2022,Pseudosuccinea,columella,manual,Morphology,Material sample
+38452963,27.99388885,-26.1760006,South Africa,39,1,2023,Radix,natalensis,manual,Morphology,Material sample
+38452963,27.98961067,-26.18080521,South Africa,6,1,2023,Pseudosuccinea,columella,manual,Morphology,Material sample
+38452963,27.99388885,-26.1760006,South Africa,25,1,2023,Pseudosuccinea,columella,manual,Morphology,Material sample
+38452963,27.85294533,-25.96344376,South Africa,23,1,2023,Pseudosuccinea,columella,manual,Morphology,Material sample
+38741097,38.71670151,7.933300018,Ethiopia,12,1,2022,Lymnaea,natalensis,manual,Morphology,Preserved specimen
+38741097,38.71670151,7.933300018,Ethiopia,8,1,2022,Lymnaea,truncatula,manual,Morphology,Preserved specimen
+38741097,38.48329926,7.083300114,Ethiopia,16,1,2022,Lymnaea,natalensis,manual,Morphology,Preserved specimen
+38741097,38.48329926,7.083300114,Ethiopia,12,1,2022,Lymnaea,truncatula,manual,Morphology,Preserved specimen
+38741097,39.11669922,7.949999809,Ethiopia,116,1,2022,Lymnaea,truncatula,manual,Morphology,Preserved specimen
+38605395,35.14173889,-14.31373024,Malawi,,1,2022,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38605395,34.84091187,-16.03759003,Malawi,,1,2022,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38605395,35.27474976,-16.88780022,Malawi,,1,2022,Radix,natalensis,scoop net,Morphology,Material sample
+38605395,35.26551819,-16.92984962,Malawi,,1,2022,Radix,natalensis,scoop net,Morphology,Material sample
+38016629,28.76100922,-16.53099251,Zimbabwe,62,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.77053261,-16.53693581,Zimbabwe,19,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.7793541,-16.53092384,Zimbabwe,102,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.79135513,-16.5314579,Zimbabwe,1,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.8034153,-16.53397942,Zimbabwe,3,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.81224251,-16.5352993,Zimbabwe,17,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.81815338,-16.5319767,Zimbabwe,3,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.8514595,-16.53617287,Zimbabwe,4,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.8631897,-16.54298782,Zimbabwe,9,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.86785889,-16.5495739,Zimbabwe,15,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.87730789,-16.55495262,Zimbabwe,22,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.8931675,-16.55819511,Zimbabwe,10,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.91591263,-16.55328941,Zimbabwe,76,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+38016629,28.93684769,-16.56209183,Zimbabwe,93,1,2018,Pseudosuccinea,columella,scoop net,Morphology,Material sample
+36288013,35.55845642,6.960033894,Ethiopia,15,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36288013,35.55586243,6.958818913,Ethiopia,6,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36288013,35.57354355,7.003031731,Ethiopia,42,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36288013,35.56628418,6.978987694,Ethiopia,58,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36288013,35.57049179,6.968066216,Ethiopia,3,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36288013,35.51591492,6.897560596,Ethiopia,12,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+36288013,35.59209061,7.008785725,Ethiopia,2,1,2021,Lymnaea,natalensis,scoop net,Morphology,Material sample
+31891709,7.788400173,6.522399902,Nigeria,860,1,2017,Lymnaea,natalensis,manual,PCR,Material sample
+31891709,7.509990215,6.508609772,Nigeria,439,1,2017,Lymnaea,natalensis,manual,PCR,Material sample
+32400353,37.27217865,-1.224060059,Kenya,1,1,2014,Lymnaea,natalensis,scoop net,Morphology,Material sample

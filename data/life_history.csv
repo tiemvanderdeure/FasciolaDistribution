@@ -1,0 +1,492 @@
+include,Key,group,snail,fasciola,sample_size,trait,temperature,exp_length,unit,observation,remarks
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,5,49,/day,0.002,Welsh samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,5,49,/day,0.004,Italian samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,10,52,/day,0.002,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,15,52,/day,0.006,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,15,49,/day,0.005,Welsh samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,15,49,/day,0.01,Italian samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,20,52,/day,0.003,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,20,49,/day,0.007,Welsh samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,20,49,/day,0.027,Italian samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,25,52,/day,0.013,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,25,49,/day,0.014,Welsh samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,25,49,/day,0.04,Italian samples
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,,metacercarial death rate,30,49,/day,0.032,Welsh samples
+TRUE,smithPredictingTemporalChanges2025,1,,hepatica,,metacercarial death rate,30,49,/day,0.059,Italian samples
+TRUE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,148,cercarial release,20,,cercariae/snail,70,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,10,cercarial release,15,,cercariae/snail,138.5,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,22,cercarial release,20,,cercariae/snail,118.36,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,16,cercarial release,23,,cercariae/snail,243,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,23,cercarial release,26,,cercariae/snail,65.08,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,20,cercarial release,28,,cercariae/snail,45.85,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,12,cercarial release,30,,cercariae/snail,13.15,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,12,cercarial release,15,,cercariae/snail,248.5,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,10,cercarial release,20,,cercariae/snail,229.2,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,12,cercarial release,25,,cercariae/snail,225.8,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,9,cercarial release,30,,cercariae/snail,115.4,
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,cercarial release,19,,cercariae/snail,246.92,"average from snails infected with 1,3,6 miracidia"
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,cercarial release,25,,cercariae/snail,370.5,"average from snails infected with 1,3,6 miracidia"
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,cercarial release,30,,cercariae/snail,199.83,"average from snails infected with 1,3,6 miracidia"
+TRUE,bitakaramireLymnaeaNatalensisLaboratory1968,1,radix natalensis,gigantica,400,cercarial release,26,,cercariae/snail,652.8,
+TRUE,darLarvalProductivityFasciola2004,1,Galba truncatula,gigantica,50,cercarial release,20,,cercariae/snail,240,
+TRUE,darLarvalProductivityFasciola2004,1,radix natalensis,gigantica,50,cercarial release,23.5,,cercariae/snail,286.3,22-25C
+TRUE,guobadiaParasiteSnailhostRelationship1996,1,radix natalensis,gigantica,60,cercarial release,29,,cercariae/snail,956,
+TRUE,kendallEmergenceCercariaeFasciola1951,1,Galba truncatula,hepatica,,cercarial release,9,,cercariae/snail,0,cites 9C as minimum temperature for emergence
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,6,cercarial release,16.5,,cercariae/snail,230.2,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,3,cercarial release,16.5,,cercariae/snail,565.7,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,cercarial release,16.5,,cercariae/snail,791,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,7,cercarial release,17,,cercariae/snail,93.9,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,8,cercarial release,17,,cercariae/snail,509.3,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,cercarial release,17,,cercariae/snail,266.7,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,3,cercarial release,22,,cercariae/snail,921,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,11,cercarial release,22,,cercariae/snail,1636.2,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,cercarial release,22,,cercariae/snail,835.5,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,6,cercarial release,25,,cercariae/snail,391.3,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,7,cercarial release,25,,cercariae/snail,708.3,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,cercarial release,25,,cercariae/snail,722.3,Exposed to 5 miracidia
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,cercarial release,10,,cercariae/snail,89.58,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,cercarial release,16,,cercariae/snail,1057.77,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,cercarial release,20,,cercariae/snail,914.23,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,cercarial release,25,,cercariae/snail,119.25,
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,hepatica,16,cercarial release,25,,cercariae/snail,510,476-544 cercariae per snail
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,81,cercarial release,20,,cercariae/snail,231.8,population A
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,77,cercarial release,20,,cercariae/snail,143.3,population B
+TRUE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,cercarial release,19,,cercariae/snail,126.65,"average from snails infected with 1,2,3,5 miracida. Temperature 18-20C"
+TRUE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,cercarial release,25,,cercariae/snail,329.8,"average from snails infected with 1,2,3,5 miracida. Temperature 24-26C"
+FALSE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,cercarial release,25,,cercariae/snail,122.4,"average from snails infected with 1,2,3,5 miracida. Temperature 24-26C. Mature snails"
+TRUE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,cercarial release,30,,cercariae/snail,189.75,"average from snails infected with 1,2,3,5 miracida. Temperature 29-31C"
+TRUE,solimanFasciolaGiganticaCercarial2009,1,radix natalensis,gigantica,,cercarial release,17,,cercariae/snail,62,
+TRUE,solimanFasciolaGiganticaCercarial2009,1,radix natalensis,gigantica,,cercarial release,24,,cercariae/snail,181.5,
+TRUE,solimanFasciolaGiganticaCercarial2009,1,radix natalensis,gigantica,,cercarial release,31,,cercariae/snail,153.8,
+TRUE,souzaAspectsMaintenanceLife2002,1,Pseudosuccinea columella,hepatica,51,cercarial release,24,60,cercariae/snail,309.9215686,Mass exposure to miracidia (5 snails to 25 miracidia)
+FALSE,guobadiaParasiteSnailhostRelationship1996,1,radix natalensis,gigantica,60,cercarial release,29,,cercariae/snail/day,56.8,
+FALSE,raoComparativeSusceptibilityLymnaea1966,1,radix natalensis,gigantica,99,prepatent period,21,,cercariae/snail/day,37,"temperature very approximate, first shedder"
+FALSE,raoComparativeSusceptibilityLymnaea1966,1,Lymnaea rufescens,gigantica,99,prepatent period,21,,cercariae/snail/day,6.6,
+TRUE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,148,prepatent period,20,,days,50,
+TRUE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,148,shedding period,20,,days,11,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,,prepatent period,10,214,days,214,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,10,prepatent period,15,,days,144.45,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,22,prepatent period,20,,days,67.06,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,16,prepatent period,23,,days,60.72,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,23,prepatent period,26,,days,56.8,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,20,prepatent period,28,,days,41.53,
+TRUE,al-habbibEffectConstantChanging1983,1,Galba truncatula,hepatica,12,prepatent period,30,,days,41.59,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,,prepatent period,10,220,days,220,still no development at the end of the experiment (after 220 days)
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,,prepatent period,12,220,days,220,Only developed to redial stage
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,12,prepatent period,15,,days,128.65,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,10,prepatent period,20,,days,84.35,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,12,prepatent period,25,,days,63.197,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,Radix auricularia,gigantica,9,prepatent period,30,,days,42.65,
+TRUE,alicata1938observations,1,,gigantica,,hatching time,26.6667,,days,14,78-82 Fahrenheit
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching time,15,,days,44.5,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching time,20,,days,26.1,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching time,25,,days,17.8,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching time,30,,days,11.1,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching time,35,,days,9.1,
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,prepatent period,19,,days,70.2,"average from snails infected with 1,3,6 miracidia"
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,prepatent period,25,,days,57.73333333,"average from snails infected with 1,3,6 miracidia"
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,,gigantica,,hatching time,25,,days,17,"kept in the dark, then hatched after 17 days"
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,prepatent period,30,,days,45.66666667,"average from snails infected with 1,3,6 miracidia"
+TRUE,bitakaramireLymnaeaNatalensisLaboratory1968,1,radix natalensis,gigantica,400,prepatent period,26,,days,45,
+TRUE,bitakaramireLymnaeaNatalensisLaboratory1968,1,,gigantica,,hatching time,26,,days,16,
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,prepatent period,10,100,days,100,
+TRUE,borayExperimentalFascioliasisAustralia1969,1,,hepatica,,metacercarial death rate,10,130,days,130,may be data from Broay and Engik 1964
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,prepatent period,15,,days,84,data from Boray (1963)
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,prepatent period,23,,days,41,data from Boray (1963)
+TRUE,borayExperimentalFascioliasisAustralia1969,1,,hepatica,,metacercarial death rate,25,36,days,36,may be data from Broay and Engik 1964
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,prepatent period,26,,days,38,data from Boray (1963)
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,prepatent period,30,,days,27,data from Boray (1963)
+TRUE,borayExperimentalFascioliasisAustralia1969,1,,hepatica,,metacercarial death rate,30,14,days,14,may be data from Broay and Engik 1964
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,prepatent period,35,,days,26,data from Boray (1963)
+TRUE,claxtonEffectCyclicTemperatures1999,1,Lymnaea viatrix,hepatica,,prepatent period,23,,days,55,"estimated from figure, sample size unclear, average over 21 days"
+TRUE,claxtonEffectCyclicTemperatures1999,1,,hepatica,,hatching time,23.8567,,days,16.622,"estimated from figure, sample size unclear"
+TRUE,claxtonEffectCyclicTemperatures1999,1,,hepatica,,hatching time,23.6148,,days,16.8542,"estimated from figure, sample size unclear"
+TRUE,claxtonEffectCyclicTemperatures1999,1,,hepatica,,hatching time,15.3268,,days,37.0943,"estimated from figure, sample size unclear"
+TRUE,claxtonEffectCyclicTemperatures1999,1,,hepatica,,hatching time,14.3276,,days,44.8308,"estimated from figure, sample size unclear"
+TRUE,claxtonEffectCyclicTemperatures1999,1,,hepatica,,hatching time,13.1341,,days,44.9531,"estimated from figure, sample size unclear"
+TRUE,claxtonEffectCyclicTemperatures1999,1,,hepatica,,hatching time,9.36228,,days,65.9749,"estimated from figure, sample size unclear"
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,432,hatching time,30,,days,9.45,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,438,hatching time,28,,days,10.16,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,448,hatching time,26,,days,11.98,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,465,hatching time,24,,days,13.39,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,497,hatching time,22,,days,15.58,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,499,hatching time,20,,days,18.92,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,501,hatching time,18,,days,24.49,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,534,hatching time,16,,days,32.39,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,543,hatching time,13,,days,56.5,
+TRUE,connollyPredictionGrowthOrganisms1979,1,,hepatica,546,hatching time,10,,days,115.75,
+TRUE,darLarvalProductivityFasciola2004,1,Galba truncatula,gigantica,50,prepatent period,20,,days,47.1,
+TRUE,darLarvalProductivityFasciola2004,1,radix natalensis,gigantica,50,prepatent period,23.5,,days,62.7,22-25C
+TRUE,dinnikEffectSeasonalVariations1963,1,,gigantica,,hatching time,26,,days,17,also observed in dinnikObservationsSuccessionRedial1956
+TRUE,dinnikEffectSeasonalVariations1963,1,,gigantica,,prepatent period,26,,days,38,36-40 days
+TRUE,dreyfussOvipositionLymnaeaTruncatula1999,1,Galba truncatula,hepatica,300,prepatent period,20,,days,49.66666667,mean from 3 groups
+TRUE,dreyfussOvipositionLymnaeaTruncatula1999,1,Galba truncatula,,100,survival,20,,days,112.3,
+TRUE,gretillatNotePreliminaireLepidemiologie1961,1,,gigantica,,hatching time,25.5,,days,28,"25-26 degrees, 26-30 days hatching time"
+TRUE,gretillatNotePreliminaireLepidemiologie1961,1,Radix natalensis,gigantica,180,prepatent period,25.5,,days,38,"25-26 degrees, emergence after 35-40 days"
+TRUE,gretillatNotePreliminaireLepidemiologie1961,1,Radix natalensis,gigantica,180,prepatent period,21.5,,days,55,"20-23 degrees, emergence after 50-60 days"
+TRUE,guobadiaParasiteSnailhostRelationship1996,1,radix natalensis,gigantica,60,prepatent period,29,,days,37,first shedders in each of 3 groups of 20 snails on day 37
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,15,120,days,120,eggs from gallbladder
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,15,120,days,120,eggs from gallbladder
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,15,163,days,163,"unknown source, lot 1"
+FALSE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,15,163,days,163,"unknown source, lot 2"
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,19,,days,30,"room temp 17-21 degrees, eggs from water buffalo bladder, hatching at least until day 116"
+FALSE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,19.5,,days,33,"Room temp 17-22 degrees, eggs from gallbladder"
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,20,,days,24,eggs from gallbladder
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,20,,days,32,eggs from living flukes
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,25,,days,17,eggs from gallbladder
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,25,,days,19,eggs from gallbladder
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,25,,days,21,"hatching days 21-38, eggs from dead flukes"
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,25,,days,24,eggs from dead flukes
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,25,,days,19,eggs from living flukes
+FALSE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,25.5,,days,23,"“ca 25.5”, eggs from gallbladder"
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,30,,days,11,eggs from gallbladder
+TRUE,guralpFasciolaGiganticaFascioliasis1964,1,,gigantica,,hatching time,30,,days,10,from gallbladder of cattle
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,19,hatching time,10.5,,days,50.21,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,16,hatching time,12,,days,45.25,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,19,hatching time,12.75,,days,30.79,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,5,hatching time,14.5,,days,22.6,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,14,hatching time,14.5,,days,19.07,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,33,hatching time,16.5,,days,17.67,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,16,hatching time,16.5,,days,16.69,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,81,hatching time,20,,days,12.89,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,202,hatching time,20,,days,13.54,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,16,hatching time,22,,days,11.25,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,20,hatching time,22,,days,10.9,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,36,hatching time,24.25,,days,10.75,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,8,hatching time,25.5,,days,9.38,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,7,hatching time,25.5,,days,7.14,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,29,hatching time,26.75,,days,9.62,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,20,hatching time,27,,days,7.65,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,30,hatching time,27.5,,days,9.87,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,7,hatching time,28,,days,7.71,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,31,hatching time,29,,days,7.55,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,25,hatching time,29.25,,days,11.04,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,15,hatching time,32,,days,6.47,mean number of days to hatching
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,8,hatching time,34.25,,days,7.38,mean number of days to hatching
+TRUE,hodasiEffectsLowTemperature1976,1,Galba truncatula,,20,survival,5,140,days,105,median lifespan
+TRUE,hodasiEffectsLowTemperature1976,1,Galba truncatula,,20,survival,19,140,days,98,"median lifespan, room temperature 19+-3C"
+TRUE,kendallLifeHistoryLimnaeaTruncatula1953,1,Galba truncatula,,,hatching time,10.5,,days,32,"between 10 and 11 C, in methods"
+TRUE,kendallLifeHistoryLimnaeaTruncatula1953,1,Galba truncatula,,,hatching time,11,,days,29,
+FALSE,kendallLifeHistoryLimnaeaTruncatula1953,1,Galba truncatula,,,hatching time,18.5,,days,12,"""winter temperatures of between 16 and 21 degreees"""
+FALSE,kendallLifeHistoryLimnaeaTruncatula1953,1,Galba truncatula,,,hatching time,25.5,,days,11,"""during summer (21 to 30C)"""
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,6,prepatent period,16.5,,days,34.7,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,3,prepatent period,16.5,,days,37.7,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,prepatent period,16.5,,days,34.8,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,6,shedding period,16.5,,days,29,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,3,shedding period,16.5,,days,20.7,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,shedding period,16.5,,days,24.2,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,7,prepatent period,17,,days,47,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,8,prepatent period,17,,days,39.6,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,prepatent period,17,,days,42.7,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,7,shedding period,17,,days,4.6,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,8,shedding period,17,,days,19.1,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,shedding period,17,,days,11.8,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,3,prepatent period,22,,days,37.7,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,11,prepatent period,22,,days,36.6,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,prepatent period,22,,days,41,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,3,shedding period,22,,days,18.3,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,11,shedding period,22,,days,26.8,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,shedding period,22,,days,20.5,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,6,prepatent period,25,,days,29,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,7,prepatent period,25,,days,27.3,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,prepatent period,25,,days,27,Exposed to 5 miracidia
+TRUE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,6,shedding period,25,,days,23.7,Exposed to 1 miracidium
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,7,shedding period,25,,days,27.4,Exposed to 3 miracidia
+FALSE,leeMetacercarialProductionLymnaea1995,1,Lymnaea viridis,hepatica,,shedding period,25,,days,24.7,Exposed to 5 miracidia
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,hatching time,5,90,days,90,"did not hatch, starting to disintegrate after 3 months"
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,prepatent period,10,,days,208.3333333,first shredder in each group
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,survival,10,,days,305.6,infected
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,hatching time,10,,days,31.5,
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,survival,10,,days,317.7,"from control group, table 3.1"
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,prepatent period,16,,days,71.33333333,first shredder in each group
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,survival,16,,days,170.2,infected
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,hatching time,16,,days,17.5,
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,survival,16,,days,154.2,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,prepatent period,20,,days,38.33333333,first shredder in each group
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,hatching time,20,,days,11.5,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,survival,20,,days,113.4,infected
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,survival,20,,days,110,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,prepatent period,25,,days,30.33333333,first shredder in each group
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,hatching time,25,,days,9.5,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,hepatica,,survival,25,,days,62,infected
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,survival,25,,days,67.8,
+TRUE,niceStudyEffectTemperature1974,1,,hepatica,,hatching time,25,,days,12,"kept in the dark, then hatched after 12 days"
+TRUE,niceStudyEffectTemperature1974,1,Galba truncatula,hepatica,,time to peak redial weight,16,,days,56,
+TRUE,niceStudyEffectTemperature1974,1,Galba truncatula,hepatica,,time to peak redial weight,20,,days,39,
+TRUE,niceStudyEffectTemperature1974,1,Galba truncatula,hepatica,,time to peak redial weight,25,,days,30,
+TRUE,overEcologicalBasisParasite1982,1,Galba truncatula,hepatica,,prepatent period,20,,days,50,"“own observations”, no methods section"
+TRUE,overEcologicalBasisParasite1982,1,,gigantica,,hatching time,26,,days,17,from El Harth 1977
+TRUE,overEcologicalBasisParasite1982,1,,hepatica,,hatching time,20,,days,21,"“own observations”, no methods section"
+TRUE,phaleeExperimentalLifeHistory2015,1,Radix rubiginosa,gigantica,,prepatent period,29,,days,39,
+TRUE,phaleeExperimentalLifeHistory2015,1,,gigantica,1000,hatching time,29,,days,12,27-31 C
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching time,15,,days,26,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching time,18,,days,19,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching time,21,,days,17,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching time,25,,days,14,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching time,27,,days,13,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching time,30,,days,14,
+TRUE,raoComparativeSusceptibilityLymnaea1966,1,,gigantica,,hatching time,27,,days,15,
+FALSE,raoComparativeSusceptibilityLymnaea1966,1,radix natalensis,gigantica,99,prepatent period,21,,days,50,"temperature very approximate, first shedder"
+FALSE,raoComparativeSusceptibilityLymnaea1966,1,Lymnaea rufescens,gigantica,99,prepatent period,21,,days,63,
+TRUE,robertsStudiesLifeCycleFasciola1950,1,,hepatica,,hatching time,25,,days,14,mass hatching after 14 days
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,hepatica,1,prepatent period,17,,days,57,first shedder
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,,50,hatching time,17,,days,19.5,17th-22th day
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,,82,maturation time,17,,days,85,76-94 days to length of 4.5mm
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,hepatica,16,prepatent period,25,,days,40,from day 38-42
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,hepatica,16,shedding period,25,,days,5,2-8 days
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,,50,hatching time,25,,days,10,8th-12th day
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,,82,maturation time,25,,days,57.5,53-62 days to length of 4.5mm
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,81,prepatent period,20,,days,49.5,population A
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,77,prepatent period,20,,days,50.2,population B
+TRUE,ross1929bionomics,1,,hepatica,,hatching time,30,,days,8,"in howellEpidemiologyControlLiver2020, “embryonation"""
+TRUE,ross1929bionomics,1,,hepatica,,hatching time,10,,days,182,"in howellEpidemiologyControlLiver2020, “embryonation"""
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,30,,days,9.45497,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,28.5,,days,10.299,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,27,,days,11.143,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,25.5,,days,11.9886,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,23,,days,14.5811,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,21,,days,17.4117,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,20,,days,19.8292,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,18,,days,25.1067,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,15,,days,39.4752,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,12,,days,62.9707,
+TRUE,rowcliffeObservationsBionomicsEgg1960,1,,hepatica,,hatching time,10,,days,160.337,
+TRUE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,prepatent period,19,,days,99.825,"average from snails infected with 1,2,3,5 miracida. Temperature 18-20C"
+TRUE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,prepatent period,25,,days,73.25,"average from snails infected with 1,2,3,5 miracida. Temperature 24-26C"
+FALSE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,prepatent period,25,,days,79.73333333,"average from snails infected with 1,2,3,5 miracida. Temperature 24-26C. Mature snails"
+TRUE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,prepatent period,30,,days,37.3,"average from snails infected with 1,2,3,5 miracida. Temperature 29-31C"
+FALSE,sharmaStudiesPrevalenceLaboratory1989,1,Lymnaea auricularia,gigantica,,prepatent period,11,,days,64,"first shedder, 10-12 degrees – crazy outlier!"
+TRUE,sharmaStudiesPrevalenceLaboratory1989,1,,gigantica,,hatching time,26,,days,16,hatching on day 15-17 at 25-27 degrees
+FALSE,sharmaStudiesPrevalenceLaboratory1989,1,Lymnaea auricularia,gigantica,,prepatent period,26,,days,20,"first shedder, 25-27 degrees"
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,400,hatching time,26,,days,12.31,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,400,hatching time,22,,days,18.83,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,400,hatching time,18,,days,32.51,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,,hatching time,10.7,,days,59,"at 57-61 days, 50% of eggs hatched"
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,,hatching time,16.1,,days,26.5,"at 26-27 days, 50% of eggs hatched"
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,,hatching time,19.7,,days,19.5,"at 17-22 days, 50% of eggs hatched"
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,,hatching time,23.7,,days,18,"at 16-20 days, 50% of eggs hatched"
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,,hatching time,27.5,,days,17.75,"at 17.5-18 days, 50% of eggs hatched"
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,8,126,days,126,"""no larval stages in the snail"" for 18 weeks"
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,15,126,days,126,"""no larval stages in the snail"" for 18 weeks"
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,20,126,days,62.5,"""the normal releasing time was 60-65 days"""
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,25,126,days,46,"""cercariae released when the snail shell was cracked"" by day 45-47"
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,30,30,days,30,no cercarial release before all snails died
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,30,25,days,25,no cercarial release before all snails died
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,40,6,days,6,no cercarial release before all snails died
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,prepatent period,40,6,days,6,no cercarial release before all snails died
+TRUE,tagleObservacionesSobreEvolucion1944,1,,hepatica,,hatching time,28,,days,9,25-31 degrees
+TRUE,tagleObservacionesSobreEvolucion1944,1,,hepatica,,hatching time,25,,days,11,23-27 degrees
+TRUE,tagleObservacionesSobreEvolucion1944,1,,hepatica,,hatching time,25,,days,13,24-26 degrees
+TRUE,tagleObservacionesSobreEvolucion1944,1,,hepatica,,hatching time,22,,days,17,20-24 degrees
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,5,,days to 50% mortality,600,not really close to an exponential function
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,10,,days to 50% mortality,270,
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,16,,days to 50% mortality,121,
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,20,,days to 50% mortality,98,
+FALSE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,25,,days to 50% mortality,80,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,5,,egg masses/snail/day,0.012,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,10,,egg masses/snail/day,0.135,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,16,,egg masses/snail/day,0.546,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,20,,egg masses/snail/day,0.621,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,25,,egg masses/snail/day,0.671,
+FALSE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,,,fecundity,25,,egg masses/snail/week,2.333333333,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,5,,eggs/snail/day,0.013,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,10,,eggs/snail/day,1.897,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,16,,eggs/snail/day,7.303,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,20,,eggs/snail/day,5.56,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,fecundity,25,,eggs/snail/day,3.823,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,fecundity,18,,eggs/snail/day,5.385714286,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,fecundity,25,,eggs/snail/day,0.421428571,
+TRUE,al-habbibEffectConstantChanging1983,1,,hepatica,,miracidial lifespan,10,,hours,22.71,
+TRUE,al-habbibEffectConstantChanging1983,1,,hepatica,,miracidial lifespan,15,,hours,16.42,
+TRUE,al-habbibEffectConstantChanging1983,1,,hepatica,,miracidial lifespan,20,,hours,10.29,
+TRUE,al-habbibEffectConstantChanging1983,1,,hepatica,,miracidial lifespan,26,,hours,7.6,
+TRUE,al-habbibEffectConstantChanging1983,1,,hepatica,,miracidial lifespan,30,,hours,5.78,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,10,metacercarial lifespan,10,,hours,29.3,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,10,metacercarial lifespan,15,,hours,25.1,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,10,metacercarial lifespan,20,,hours,18.4,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,10,metacercarial lifespan,25,,hours,8.8,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,10,metacercarial lifespan,30,,hours,4.1,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,10,metacercarial lifespan,35,,hours,2.05,
+FALSE,claxtonEffectCyclicTemperatures1999,1,Lymnaea viatrix,,,growth,5,,mm/day,0,"estimated from figure, sample size unclear, average over 21 days"
+FALSE,claxtonEffectCyclicTemperatures1999,1,Lymnaea viatrix,,,growth,11,,mm/day,0.002,"estimated from figure, sample size unclear, average over 21 days"
+FALSE,claxtonEffectCyclicTemperatures1999,1,Lymnaea viatrix,,,growth,15.5,,mm/day,0.039,"estimated from figure, sample size unclear, average over 21 days"
+FALSE,claxtonEffectCyclicTemperatures1999,1,Lymnaea viatrix,,,growth,25,,mm/day,0.095,"estimated from figure, sample size unclear, average over 21 days"
+FALSE,claxtonEffectCyclicTemperatures1999,1,Lymnaea viatrix,,,growth,29.5,,mm/day,0.043,"estimated from figure, sample size unclear, average over 21 days"
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,growth,5,,mm/day,0.003,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,growth,10,,mm/day,0.042,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,growth,16,,mm/day,0.09,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,growth,20,,mm/day,0.151,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,growth,25,,mm/day,0.143,
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,hepatica,10,growth,5,61,mm/day,0,"kept in mud at 5C fro two months, neither snail nor fasciola grew"
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,,30,growth,5,91,mm/day,0,kept in mud at 5C fro three months
+TRUE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,148,infection efficiency,20,30,N,82,"exposed to F hepatica, P daubneyi dual infection (single miracidium each)"
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,200,survival,20,90,N,17,"exposed to F hepatica, P daubneyi dual infection"
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,200,survival,20,60,N,104,"exposed to F hepatica, P daubneyi dual infection"
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,400,survival,20,30,N,296,"exposed to F hepatica, P daubneyi dual infection"
+TRUE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,,100,survival,20,90,N,70,
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,,100,survival,20,60,N,91,
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,,200,survival,20,30,N,195,control group
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,148,survival,,60,N,14,"exposed to F hepatica, P daubneyi dual infection, exposed to 6-8C daily after 30 days"
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,hepatica,148,survival,,30,N,91,"exposed to F hepatica, P daubneyi dual infection, exposed to 6-8C daily after 30 days"
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,,98,survival,,60,N,64,exposed to 6-8C daily after 30 days
+FALSE,abrousParamphistomumDaubneyiFasciola1999,1,Galba truncatula,,98,survival,,30,N,86,exposed to 6-8C daily after 30 days
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,10,,N,457,assumed sample size 500 (must be approx this from conolly’s results)
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,13,,N,451,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,16,,N,440,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,18,,N,420,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,20,,N,414,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,22,,N,408,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,24,,N,388,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,26,,N,376,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,28,,N,368,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,30,,N,358,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,32,,N,210,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,34,,N,30,
+TRUE,al-habbibEffectDifferentTemperatures1981,1,,hepatica,500,hatching success,35,,N,0,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching success,10,,N,0,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching success,15,,N,13,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching success,20,,N,13,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching success,25,,N,11,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching success,30,,N,10,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching success,35,,N,9,
+TRUE,al-jibouriEcologicalFactorsAffecting2010,1,,gigantica,15,hatching success,37,,N,0,
+TRUE,darLarvalProductivityFasciola2004,1,Galba truncatula,gigantica,50,survival,20,30,N,40,
+TRUE,darLarvalProductivityFasciola2004,1,radix natalensis,gigantica,50,survival,23.5,30,N,49,22-25C
+TRUE,dinnikInfluenceTemperatureSuccession1964,1,radix natalensis,gigantica,20,infection efficiency,26,26,N,7,"exposed to one miracidium each, disected after 26-28 days"
+FALSE,dinnikInfluenceTemperatureSuccession1964,1,radix natalensis,gigantica,60,infection efficiency,26,26,N,12,"60 TOTAL, UNCLEAR HOW MANY SURVIVED? Exposed to one miracidium each, disected after 26-28 days"
+TRUE,dinnikInfluenceTemperatureSuccession1964,1,radix natalensis,gigantica,13,infection efficiency,26,26,N,5,"exposed to one miracidium each, disected after 26-28 days"
+TRUE,dreyfussOvipositionLymnaeaTruncatula1999,1,Galba truncatula,hepatica,100,infection efficiency,20,,N,40,infected with 1 miracidium
+FALSE,dreyfussOvipositionLymnaeaTruncatula1999,1,Galba truncatula,hepatica,100,infection efficiency,20,,N,44,infected with 2 miracidia
+FALSE,dreyfussOvipositionLymnaeaTruncatula1999,1,Galba truncatula,hepatica,100,infection efficiency,20,,N,47,infected with 3 miracidia
+TRUE,goldTemperatureEffectSusceptibility1979,1,Galba truncatula,hepatica,56,infection efficiency,12,,N,15,"Exposed to 5 miracidia, checked on death or when shedding starts"
+TRUE,goldTemperatureEffectSusceptibility1979,1,Galba truncatula,hepatica,45,infection efficiency,16,,N,33,"Exposed to 5 miracidia, checked on death or when shedding starts"
+TRUE,goldTemperatureEffectSusceptibility1979,1,Galba truncatula,hepatica,77,infection efficiency,20,,N,62,"Exposed to 5 miracidia, checked on death or when shedding starts"
+TRUE,goldTemperatureEffectSusceptibility1979,1,Galba truncatula,hepatica,58,infection efficiency,24,,N,47,"Exposed to 5 miracidia, checked on death or when shedding starts"
+TRUE,goldTemperatureEffectSusceptibility1979,1,Galba truncatula,hepatica,64,infection efficiency,28,,N,38,"Exposed to 5 miracidia, checked on death or when shedding starts"
+TRUE,goldTemperatureEffectSusceptibility1979,1,Galba truncatula,hepatica,63,infection efficiency,32,,N,34,"Exposed to 5 miracidia, checked on death or when shedding starts"
+TRUE,guobadiaParasiteSnailhostRelationship1996,1,radix natalensis,gigantica,60,survival,29,105,N,41,
+TRUE,guobadiaParasiteSnailhostRelationship1996,1,radix natalensis,,20,survival,29,105,N,16,
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,,hatching success,5,,N,0,no hatching below 5C
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,,hatching success,5,,N,0,no hatching below 5C
+TRUE,harrisStudiesEcologyLymnaea1974,1,Lymnaea tomentosa,,,hatching success,30,,N,0,no hatching at/above 30C
+TRUE,harrisStudiesEcologyLymnaea1974,1,Pseudosuccinea columella,,,hatching success,36,,N,0,no hatching at/above 36C
+TRUE,hodasiEffectsLowTemperature1976,1,Galba truncatula,,20,survival,5,105,N,10,median lifespan
+TRUE,hodasiEffectsLowTemperature1976,1,Galba truncatula,,20,survival,19,98,N,10,"median lifespan, room temperature 19+-3C"
+TRUE,moazeniLethalEffectHigh2010,1,,hepatica,1709,hatching success,28,16,N,888,"miracidial formation by microscopy, total across 3 replicates"
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,5,600,N,20,not really close to an exponential function
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,10,270,N,20,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,16,121,N,20,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,20,98,N,20,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,40,survival,25,80,N,20,
+TRUE,ramanMaintenanceRadixSnails2012,1,,gigantica,10,hatching success,26,,N,8,
+TRUE,ramanMaintenanceRadixSnails2012,1,,gigantica,10,hatching success,37,,N,0,
+FALSE,raoComparativeSusceptibilityLymnaea1966,1,radix natalensis,gigantica,99,infection efficiency,21,,N,95,"temperature very approximate, mass exposure"
+FALSE,raoComparativeSusceptibilityLymnaea1966,1,Lymnaea rufescens,gigantica,140,infection efficiency,21,,N,47,
+TRUE,robertsStudiesLifeCycleFasciola1950,1,Galba truncatula,,30,survival,5,91,N,22,kept in mud at 5C fro three months
+TRUE,robertsStudiesLifeCycleFasciola1950,1,,hepatica,10,hatching success,37,,N,0,"all eggs died, assumed 10 eggs"
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,200,survival,20,30,N,162,population A
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,200,survival,20,30,N,155,population B
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,81,infection efficiency,20,,N,58,population A
+TRUE,rondelaudConsequenceTemperatureChanges2013,1,Galba truncatula,hepatica,77,survival,20,,N,38,population B
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,400,hatching success,18,,N,164,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,400,hatching success,22,,N,178,
+TRUE,smithPredictingTemporalChanges2016,1,,hepatica,400,hatching success,26,,N,140,
+TRUE,solimanFasciolaGiganticaCercarial2009,1,radix natalensis,gigantica,200,infection efficiency,17,,N,107,
+TRUE,solimanFasciolaGiganticaCercarial2009,1,radix natalensis,gigantica,200,infection efficiency,24,,N,121,
+TRUE,solimanFasciolaGiganticaCercarial2009,1,radix natalensis,gigantica,200,infection efficiency,31,,N,71,
+TRUE,souzaAspectsMaintenanceLife2002,1,Pseudosuccinea columella,hepatica,121,infection efficiency,24,60,N,51,Mass exposure to miracidia (5 snails to 25 miracidia)
+TRUE,souzaAspectsMaintenanceLife2002,1,Pseudosuccinea columella,hepatica,121,survival,24,60,N,74,Mass exposure to miracidia (5 snails to 25 miracidia)
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,532,hatching success,2.6,,N,0,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,539,hatching success,6.5,,N,0,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,618,hatching success,10.7,,N,481,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,603,hatching success,16.1,,N,583,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,692,hatching success,19.7,,N,620,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,773,hatching success,23.7,,N,743,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,614,hatching success,27.5,,N,164,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,737,hatching success,32,,N,0,
+TRUE,vaughnEffectsTemperatureHatching1953,1,Lymnaea stagnalis,,566,hatching success,36,,N,0,
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,survival,30,30,N,0,
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,survival,30,25,N,0,
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,survival,40,6,N,0,
+TRUE,wallEffectsTemperatureDevelopment1967,1,Pseudosuccinea columella,hepatica,40,survival,40,6,N,0,
+TRUE,wilsonEffectVariationsHost1978,1,Galba truncatula,hepatica,50,infection efficiency,10,21,N,21,using plotdigitizer
+TRUE,wilsonEffectVariationsHost1978,1,Galba truncatula,hepatica,50,infection efficiency,16,21,N,24,using plotdigitizer
+TRUE,wilsonEffectVariationsHost1978,1,Galba truncatula,hepatica,50,infection efficiency,20,21,N,26,using plotdigitizer
+TRUE,wilsonEffectVariationsHost1978,1,Galba truncatula,hepatica,50,infection efficiency,25,21,N,30,using plotdigitizer
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,20,7,N alive,174,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,20,14,N alive,168,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,20,21,N alive,166,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,20,35,N alive,104,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,20,49,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,26,7,N alive,174,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,26,14,N alive,6,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,26,21,N alive,22,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,26,35,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,30,7,N alive,10,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,30,14,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,30,21,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,30,35,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,35,7,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,35,14,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,35,21,N alive,0,not sure how best to use all this data?
+FALSE,suhardonoEffectTemperatureHumidity2006,1,,gigantica,,metacercarial death rate,35,35,N alive,0,not sure how best to use all this data?
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,3,,radioactivity_a,0,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,6.5,,radioactivity_a,18.7028,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,9,,radioactivity_a,97.0229,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,13,,radioactivity_a,176.826,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,17,,radioactivity_a,241.821,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,25,,radioactivity_a,232.811,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,26,,radioactivity_a,218.861,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,32,,radioactivity_a,128.919,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,1,Galba truncatula,hepatica,,infection efficiency,35,,radioactivity_a,184.539,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,2,Galba truncatula,hepatica,,infection efficiency,3,,radioactivity_b,0,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,2,Galba truncatula,hepatica,,infection efficiency,5,,radioactivity_b,0,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,2,Galba truncatula,hepatica,,infection efficiency,9,,radioactivity_b,39.1063,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,2,Galba truncatula,hepatica,,infection efficiency,15,,radioactivity_b,113.574,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,2,Galba truncatula,hepatica,,infection efficiency,20,,radioactivity_b,138.284,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,2,Galba truncatula,hepatica,,infection efficiency,23,,radioactivity_b,163.979,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,2,Galba truncatula,hepatica,,infection efficiency,35,,radioactivity_b,80.8066,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,4,,radioactivity_c,0,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,8,,radioactivity_c,29.0988,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,10,,radioactivity_c,86.0378,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,15,,radioactivity_c,114.194,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,20,,radioactivity_c,111.134,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,24,,radioactivity_c,124.658,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,28,,radioactivity_c,19.1576,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,christensenInfluenceTemperatureInfectivity1976,3,Galba truncatula,hepatica,,infection efficiency,32,,radioactivity_c,47.3161,"radioactivity in CPM after 60 minutes, used plotdigitizer"
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,19,,share,0.666666667,1 miracidium
+FALSE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,19,,share,0.86,3 miracidia
+FALSE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,19,,share,100,6 miracidia
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,25,,share,0.4,1 miracidium
+FALSE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,25,,share,0.6,3 miracidia
+FALSE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,25,,share,73.33,6 miracidia
+TRUE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,30,,share,0.333333333,1 miracidium
+FALSE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,30,,share,0.4,3 miracidia
+FALSE,al-jibouriFactorsAffectingMetacercarial2011,1,Radix auricularia,gigantica,,infection efficiency,30,,share,60,6 miracidia
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,fluke recovery rate,15,,share,0.48,"sheep infection, data from Boray (1963)"
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,fluke recovery rate,23,,share,0.49,"sheep infection, data from Boray (1963)"
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,fluke recovery rate,26,,share,4.12,"sheep infection, data from Boray (1963)"
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,fluke recovery rate,30,,share,0.157,"sheep infection, data from Boray (1963)"
+TRUE,borayExperimentalFascioliasisAustralia1969,1,Lymnaea tomentosa,hepatica,,fluke recovery rate,35,,share,0.061,"sheep infection, data from Boray (1963)"
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,,hatching success,5,,share,0,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,1822,hatching success,10,,share,0.9923,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,1750,hatching success,16,,share,0.9886,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,1411,hatching success,20,,share,0.9823,
+TRUE,niceAspectsBiologyFasciola1979,1,Galba truncatula,,1742,hatching success,25,,share,0.9862,
+FALSE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,infection efficiency,19,,share,0.5,"presumably sample size 20? exposed to one miracidium, juvenile snails"
+FALSE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,infection efficiency,25,,share,0.48,"presumably sample size 20? exposed to one miracidium, juvenile snails"
+FALSE,shalabyFactorsAffectingDynamics2004,1,radix natalensis,gigantica,,infection efficiency,30,,share,0.3,"presumably sample size 20? exposed to one miracidium, juvenile snails"
+TRUE,borayExperimentalFascioliasisAustralia1969,1,,hepatica,,metacercarial death rate,25,60,share survived,0.5,may be data from Broay and Engik 1964
+TRUE,borayExperimentalFascioliasisAustralia1969,1,,hepatica,,metacercarial death rate,30,36,share survived,0.2,may be data from Broay and Engik 1964
+TRUE,borayExperimentalFascioliasisAustralia1969,1,,hepatica,,metacercarial death rate,35,14,share survived,0,may be data from Broay and Engik 1964
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,survival,30,14,share survived,0,"""within a fortnight"""
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching success,15,,snails/egg,0.984,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching success,18,,snails/egg,0.936,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching success,21,,snails/egg,0.74,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching success,25,,snails/egg,0.983,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching success,27,,snails/egg,0.934,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,hatching success,30,,snails/egg,0.563,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,maturation time,15,,weeks,19,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,maturation time,18,,weeks,14,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,maturation time,21,,weeks,10,
+TRUE,prinslooTemperatureItsBearing1969,1,radix natalensis,,,maturation time,27,,weeks,7,

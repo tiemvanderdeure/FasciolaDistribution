@@ -5,8 +5,10 @@ const GBIFids_files = Dict(
 
 function get_snail_occurrences()
     _maybe_download_gbif()
+    snaildatapath= joinpath(@__DIR__, "..", "data", "snails")
 
-    museum = CSV.read("data/snails/pulmonates.csv", DataFrame; delim = ";", types = Dict(18 => String))
+    museumpath = joinpath(snaildatapath, "pulmonates.csv")
+    museum = CSV.read(museumpath, DataFrame; delim = ";", types = Dict(18 => String))
     museum.Longitude .= map(r -> ismissing(r) || contains("°")(r) ? missing : r, museum.Longitude)
     museum.Latitude .= map(r -> ismissing(r) || contains("°")(r) ? missing : r, museum.Latitude)
     dropmissing!(museum, [:Latitude, :Longitude, :Species, :Genus])
@@ -15,8 +17,16 @@ function get_snail_occurrences()
     radix_museum = filter(m -> m.Species == "natalensis" && contains("Lymnaea")(m.Genus), museum)
     galba_museum = filter(row -> row.Species == "truncatula", museum)
 
-    lymnaeids_europe = process_gbif("data/snails/lymnaeids_europe.csv")
-    lymnaeids_africa = process_gbif("data/snails/lymnaeids_africa.csv")
+    pubmedpath = joinpath(snaildatapath, "lymnaeids_africa_pubmed.csv")
+    pubmed = CSV.read(pubmedpath, DataFrame)
+    rename!(pubmed, :longitude => :X, :latitude => :Y)
+    galba_pubmed = filter(
+        row -> row.vector__species == "truncatula" && row.vector__genus in ("Lymnaea", "Galba"), pubmed)
+    radix_pubmed = filter(
+        row -> row.vector__species == "natalensis" && row.vector__genus in ("Lymnaea", "Radix"), pubmed)
+
+    lymnaeids_europe = process_gbif(joinpath(snaildatapath, "lymnaeids_europe.csv"))
+    lymnaeids_africa = process_gbif(joinpath(snaildatapath, "lymnaeids_africa.csv"))
 
     # We do some harsher filtering for europe
     filter!(row -> row.year > 1980 && (ismissing(row.coordinateUncertaintyInMeters) || row.coordinateUncertaintyInMeters < 1000), lymnaeids_europe)
@@ -27,11 +37,11 @@ function get_snail_occurrences()
     galba_gbif_eu = filter(row -> row.species == "Galba truncatula", lymnaeids_europe)
     radix_gbif = filter(row -> row.species == "Radix natalensis", lymnaeids_africa)
 
-    radix = [xy_from_df(radix_museum); xy_from_df(radix_gbif)]
-    galba_af = [xy_from_df(galba_museum); xy_from_df(galba_gbif_af)]
-    galba_eu = xy_from_df(galba_gbif_eu)
+    radix = [xy_from_df(radix_museum); xy_from_df(radix_gbif); xy_from_df(radix_pubmed)] |> unique!
+    galba_af = [xy_from_df(galba_museum); xy_from_df(galba_gbif_af); xy_from_df(galba_pubmed)] |> unique!
+    galba_eu = xy_from_df(galba_gbif_eu) |> unique!
 
-    sampling_africa = [xy_from_df(museum); xy_from_df(lymnaeids_africa)]
+    sampling_africa = [xy_from_df(museum); xy_from_df(lymnaeids_africa); xy_from_df(pubmed)]
     sampling_eu = xy_from_df(lymnaeids_europe)
 
     sampling_radix = setdiff(sampling_africa, radix)
@@ -55,17 +65,17 @@ end
 
 xy_from_df(df) = (X = df.X, Y = df.Y) |> Tables.rowtable |> unique
 
-function mypredict(m, bio)
+function mypredict(m, bio; kw...)
     bm = Rasters.boolmask(bio)
     out = similar(first(layers(bio)))
     out = rebuild(out; missingval = eltype(out)(NaN))
     fill!(out, NaN)
-    @views out[bm] .= predict(m, bio[bm])
+    @views out[bm] .= GLM.predict(m, bio[bm]; kw...)
     return out
 end
 
 function _maybe_download_gbif()
-    snaildatadir = joinpath("data", "snails")
+    snaildatadir = joinpath(@__DIR__, "..", "data", "snails")
     for file in keys(GBIFids_files)
         filenamebase = joinpath(snaildatadir, file)
         if !isfile(filenamebase * ".csv")
