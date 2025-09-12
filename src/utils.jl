@@ -53,7 +53,7 @@ function reformat_dims(A::AbstractRaster)
 end
 # function to write nested namedtuple of rasters
 write_rasters(prefix, x; suffix = ".nc", kw...) = 
-    write_rasters(identity, predix, x; suffix, kw...)
+    write_rasters(identity, prefix, x; suffix, kw...)
 function write_rasters(f, prefix, x::NamedTuple; suffix = ".nc", kw...)
     for K in keys(x)
         write_rasters(f, prefix * "_" * string(K), x[K]; suffix, kw...)
@@ -91,11 +91,6 @@ function read_or_loop(path, nts; ds, kw...)
         NamedTuple(K => read_or_loop(path * "_" * string(K), rest; ds, kw...) for K in first)
     end
 end
-
-
-# Fix NCDatasets performance
-# See https://github.com/JuliaGeo/NCDatasets.jl/issues/274
-Base.delete_method.(methods(view, (NCDatasets.CommonDataModel.AbstractVariable, Colon)))
 
 # To make lazy arrays work with @d, see https://github.com/rafaqz/DimensionalData.jl/issues/925
 # This is all copy-pasted from the @d macro except for the last bit.
@@ -137,22 +132,3 @@ macro lazyd(expr::Expr, options::Union{Expr,Nothing}=nothing)
         end
     end
 end
-
-
-#= more advanced mapmap?
-mapmap(f, x...) = map(y -> map(f, y), x...)
-
-t = Tuple(rand(2) for i in 1:2)
-mapmap(sum, t, t)
-function f2(y...)
-    map(y...) do y...
-        @show y
-        sum(y...)
-    end
-end
-
-map(t, t) do t...
-    @show t
-end
-map(f2, t, t)
-=#
