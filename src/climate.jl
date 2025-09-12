@@ -19,7 +19,7 @@ function get_countries(continents)
 end
 
 function crop_and_read(ras, geoms)
-    ras_crop = read(crop(ras; to = geoms))
+    ras_crop = read(crop(ras; to = geoms, atol = 1e-5))
    # ras_roi = mask(ras_crop; with = geoms, boundary = :touches)
    # Rasters.trim(ras_roi)
 end
@@ -138,29 +138,15 @@ function groupbymonth(x)
     replace_missing(monthly_discharge, NaN)
 end
 
-using NearestNeighbors, StaticArrays
-function water_distance(ras)
-    rivers = naturalearth("ne_10m_rivers_lake_centerlines")
-    rivergeoms =filter(!isempty , rivers.geometry)
-    lakes = naturalearth("ne_10m_lakes")
-    lakegeoms = lakes.geometry
-    bm = boolmask(ras)
-    riverraster = rasterize(last, rivergeoms; to = bm, missingval = false, fill = true)
-    lakesraster = rasterize(last, lakes; to = bm, missingval = false, fill = true)
-    waterraster = riverraster .|| lakesraster
-    points = Rasters.DimPoints(waterraster) .|> SVector
-    waterpoints = points[waterraster]
-
-    water_dist_rast = Raster{Union{Missing, Float32}}(undef, dims(ras, (X,Y)); name = :water_dist)
-    fill!(water_dist_rast, missing)
-
-    kdtree = KDTree(waterpoints; leafsize = 20)
-
-    let kdtree = kdtree
-        map!(view(water_dist_rast, bm), points[bm]) do point
-            knn(kdtree, point, 1)[2][1]
-        end
-    end
-
-    return water_dist_rast
+function get_livestock_data(; kw...)
+    map(["CTL", "SHP"]) do s
+        filepath = joinpath(RDS.rasterpath(), "FAO", "GLW4-2020.D-DA.$s.tif")
+        url = URIs.URI(
+            scheme = "https",
+            host = "storage.googleapis.com",
+            path = "/fao-gismgr-glw4-2020-data/DATA/GLW4-2020/MAPSET/D-DA/GLW4-2020.D-DA.$s.tif"
+        )
+        RDS._maybe_download(url, filepath)
+        Raster(filepath; kw...)
+    end |> NamedTuple{(:cattle, :sheep)} |> RasterStack
 end
