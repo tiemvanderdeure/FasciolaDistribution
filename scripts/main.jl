@@ -1,6 +1,7 @@
 using FasciolaDistribution
 using Rasters, RasterDataSources, Proj, NCDatasets, StatsBase, 
     Random, Turing, Tables, Statistics, Dates, Rasters.Lookups
+import CSV
 const FD = FasciolaDistribution # any function called with FD. is from this package
 
 # this is where the data will be stored
@@ -20,9 +21,7 @@ countries = naturalearth("admin_0_countries", 10)
 europe = countries.geometry[countries.CONTINENT .== "Europe" .&& countries.ADM0_A3 .!= "RUS"]
 africa = countries.geometry[countries.CONTINENT .== "Africa"]
 roi = [europe; africa]
-ext = Extent(X=(-25.0001, 53.0001), Y = (-35.0001, 73.0001))
-
-
+ext = Extent(X=(-25, 53), Y = (-35, 73)) # roughly Africa + Europe
 
 ##############################
 # Thermal performance curves #
@@ -114,6 +113,9 @@ temperature_suitability = map(temperature) do t_avg
     end
 end
 
+# takes ~2 minutes
+write_rasters(joinpath(datapath(), "monthly_temperature_suitability"), temperature_suitability; ncwritekw...)
+
 temperature = nothing
 GC.gc()
 
@@ -149,22 +151,40 @@ end;
 discharge_res = map(discharge_mm_day) do d
     # use lazy (view) to save memory
     da = disaggregate(d, (X(12), Y(12)); lazy = true)
-    # make sure dims are identical to aviod nonsense later
-    #set(da, dims(temperature_suitability.current.hepatica))
+    # make sure dims are identical to avoid nonsense later
+    set(da, dims(temperature_suitability.current.hepatica))
 end
 
 # For now, assume 50% hydrological suitability at runoff of 1 mm/day
 discharge_to_suitability(x) = x / (one(x) + x)
 hydrological_suitability = map(x -> (FD.@lazyd discharge_to_suitability.(x)), discharge_res)
 
+# takes ~5 minutess
+write_rasters(joinpath(datapath(), "monthly_hydro_suitability"), hydrological_suitability; ncwritekw...)
+
 ##################################
 # Combined transmission strength #
 ##################################
-
 # Get monthly transmission suitability by multiplying temperature and hydrological suitability for each month
 monthly_transmission_suitability = map(temperature_suitability, hydrological_suitability) do ts, h
     map(ts) do t
-        FD.@lazyd t .* h
+        @d FD.geomean.(h, t) strict=false
+    end
+end
+
+# takes ~20 minutes
+write_rasters(joinpath(datapath(), "monthly_parasite_suitability"), monthly_transmission_suitability; ncwritekw...)
+
+# Takes ~30 minutes
+for file in filter(startswith("monthly"), readdir(datapath()))
+    ras = Raster(joinpath(datapath(), file); lazy = true)
+    newfile = replace(file, "monthly_" => "")
+    open(ras) do x
+        annual = FD.f_and_dropdims(mean, x; dims = :month)
+        summarized = FD.f_and_dropdims(mean, annual; dims = Rasters.commondims(ras, (:ghm, :gcm)))
+        @info "writing $newfile"
+        write(joinpath(datapath(), newfile), annual; ncwritekw...)
+        write(joinpath(datapath(), "mean_" * newfile), summarized; ncwritekw...)
     end
 end
 
@@ -172,7 +192,8 @@ end
 # Vector suitabilty #
 #####################
 # Load Maxnet library
-using Maxnet
+using Maxnet, StatisticalMeasures
+import SpeciesDistributionModels as SDM
 
 # First read in bioclim data
 if force || !isfile(joinpath(datapath(), "bio_current.nc"))
@@ -191,21 +212,13 @@ bio = map((:current, :future)) do t
     setcrs(ras, EPSG(4326))
 end |> NamedTuple{(:current, :future)}
 
-waterdist = FD.water_distance(bio.current)
-
-# combine bioclimatic and geographic predictors
-predictors = map(bio) do b
-    merge(b, (; waterdist))
-end
-
-predictors = bio#map(b -> b[(:bio1, :bio7, :bio12, :bio15)], bio)
+predictors = bio
 
 # Read in snail occurrence data
 # This includes some basic cleaning like selecting on year and removing duplicates
 occurrences, samplingbg = FD.get_snail_occurrences()
 
 # occurrences have galba split into europe and africa. All radix is Africa
-weights = (galba_eu = 1, galba_af = 3, radix = 1)
 rois = (galba_eu = europe, galba_af = africa, radix = roi)
 
 # Further processing - extract bioclimatic data, thin to one sample per grid cell,
@@ -223,8 +236,6 @@ occ_bgs = map(keys(occurrences)) do K
         bio_e = Base.structdiff.(e, NamedTuple{(:index,:geometry)})
         return (; geo, bio = bio_e)
     end
-    # increase the weight of African Galba by repeating the entries
-    o = map(x -> repeat(x, weights[K]), o)
     # sample sampling background points up to the number of presences points
     n_ocs = length(o.geo)
     n_bg = length(sbg.geo)
@@ -255,49 +266,47 @@ end |> NamedTuple{keys(occurrences)}
 bgs = (galba = map(vcat, occ_bgs.galba_eu[2], occ_bgs.galba_af[2]), radix = occ_bgs.radix[2])
 ocs = (galba = map(vcat, occ_bgs.galba_eu[1], occ_bgs.galba_af[1]), radix = occ_bgs.radix[1])
 
-# ## Fit the models
+#=
+# Predictor selection
+biomat = Tables.matrix(vcat(ocs.galba.bio, bgs.galba.bio))
+cmat = cor(biomat)
+biokeys = keys(predictors.current)
+cmat_nt = NamedTuple{biokeys}(NamedTuple{biokeys}.(eachrow(cmat)))
+to_include = (:bio1, :bio7, :bio12, :bio17)
+candidates = filter(x -> all(y -> abs(x[y]) < 0.7, to_include), cmat_nt)
+=#
+models = (; maxnet = MaxnetBinaryClassifier(features = "lqp", regularization_multiplier = 3))
+
+evs = map(ocs, bgs) do o, bg
+    cvdata = SDM.sdmdata(o.bio, bg.bio; 
+        predictors = (:bio1, :bio7, :bio12, :bio17), resampler = SDM.CV(nfolds = 5))
+    m = SDM.sdm(cvdata, models)
+    measures = (auc = SDM.auc, tss = BalancedAccuracy(adjusted = true))
+    ev = SDM.evaluate(m; measures)
+    dropdims(mean(ev.stack.scores; dims = (:fold)); dims = (:model, :fold))
+end
+
+for k in keys(evs)
+    CSV.write(joinpath("images", "evaluation_$(k).csv"), evs[k])
+end
+
+# fit models on all data
 models = map(ocs, bgs) do o, bg
-    y = vcat(trues(length(o.bio)), falses(length(bg.bio)))
-    x = vcat(o.bio, bg.bio)
-    maxnet(y, x; features = "lqp", regularization_multiplier = 2)
+    data = SDM.sdmdata(o.bio, bg.bio; 
+        predictors = (:bio1, :bio7, :bio12, :bio17))
+    m = SDM.sdm(data, models)
 end
 
 # ## Predict suitability for both species and for current and future climate
-host_suitability = map(models) do m
-    mypredict(m, predictors.current)
-end;
-
-fig = Figure()
-ax1 = Axis(fig[1,1])
-ax2 = Axis(fig[1,2])
-plot!(ax1, host_suitability.galba, colorrange = (0,1), colormap = Reverse(:Spectral))
-plot!(ax2, host_suitability.radix, colorrange = (0,1), colormap = Reverse(:Spectral))
-fig
-
 # Map over models (species)
 host_suitability = map(predictors) do b
     # Map over bioclimatic data (current and future)
     map(models) do m
-        mypredict(m, b)
+        dropdims(SDM.predict(m, b); dims = (:fold, :model))    
     end
 end;
 
-bio = nothing; GC.gc()
-
-for t in (:current, :future)
-    for snail in (:galba, :radix)
-        write(
-        joinpath(datapath(), "host_suitability_$(t)_$(snail).nc"),
-        FD.writeable_dims(host_suitability[t][snail]);
-        ncwritekw...
-    )
-    end
-end
-
-hydro, host, trans, temp, risk =
-    FD.read_predictions((gcms, ghms, dates); lazy = true)
-host_suitability = host
-
+FD.write_rasters(joinpath(datapath(), "host_suitability"), host_suitability; ncwritekw...)
 
 #################
 # Save to files #
@@ -309,60 +318,28 @@ for t in (:current, :future)
     @show t
     for (f, snail) in ((:hepatica, :galba), (:gigantica, :radix))
         @show f
-        transmission_suitability = f_and_dropdims(mean, monthly_transmission_suitability[t][f]; dims = :month)
-        write(
-            joinpath(datapath(), "transmission_suitability_$(t)_$(f).nc"),
-            FD.writeable_dims(transmission_suitability);
-            ncwritekw...
-        )
-        
-        write(
-            joinpath(datapath(), "temperature_suitability_$(t)_$f.nc"),
-            FD.writeable_dims(f_and_dropdims(mean, temperature_suitability[t][f]; dims = :month));
-            ncwritekw...
-        )
-            
-        write(
-            joinpath(datapath(), "host_suitability_$(t)_$(snail).nc"),
-            FD.writeable_dims(host_suitability[t][snail]);
-            ncwritekw...
-        )
+        transmission_suitability = Raster(joinpath(datapath(), "transmission_suitability_$(t)_$(f).nc"); lazy = true)
+        host_suitability = Raster(joinpath(datapath(), "host_suitability_$(t)_$(snail).nc"); lazy = true)
         # this is the final projection
-        fasciola_risk = @d sqrt.(transmission_suitability .* host_suitability[t][snail]) strict=false
-        write(
-            joinpath(datapath(), "fasciola_risk_$(t)_$(f).nc"),
-            FD.writeable_dims(fasciola_risk);
-            ncwritekw...
-        )
-    end
-
-    write(
-        joinpath(datapath(), "hydrological_suitability_$(t).nc"),
-        FD.writeable_dims(dropdims(mean(hydrological_suitability[t]; dims = :month); dims = :month));
-        ncwritekw...
-    )
-end
-
-### Calculate the mean for all of these objects so they fit in memory
-f_and_dropdims(f, x; dims) = dropdims(f(x; dims); dims)
-
-function mean_or_loop(x, filename)
-    if x isa Raster
-        println("writing $filename")
-        open(x) do x
-            ras = f_and_dropdims(mean, x; dims = otherdims(x, (X,Y,:ssp,Ti)))
+        fasciola_risk = @d FD.geomean.(transmission_suitability, host_suitability) strict=false
+        fasciola_risk = set(fasciola_risk, dims(host_suitability))
+        open(fasciola_risk) do x
             write(
-                filename * ".nc", FD.writeable_dims(ras);
+                joinpath(datapath(), "fasciola_risk_$(t)_$(f).nc"),
+                x;
                 ncwritekw...
             )
         end
-    elseif x isa NamedTuple
-        for K in keys(x)
-            mean_or_loop(x[K], filename * "_" * string(K))
-        end
     end
 end
 
+
+##### Calculate means over GCMs/GHMs for plotting
+# Read everything in lazily
+lazypreds =
+    FD.read_predictions((gcms, ghms, dates); lazy = true, raw = true)
+
+# get the filenames
 filenames = joinpath.(datapath(), "mean_" .* (
     "hydrological_suitability",
     "host_suitability",
@@ -372,14 +349,11 @@ filenames = joinpath.(datapath(), "mean_" .* (
     )
 )
 
-hydro, host, trans, temp, risk =
-    FD.read_predictions((gcms, ghms, dates); lazy = true, raw = true)
-
-mean_or_loop(host, joinpath(datapath(), "mean_host_suitability"))    
-
-# lazily calculate mean for all of these
-for (x, filename) in zip((hydro, host, trans, temp, risk), filenames)
-    mean_or_loop(x, filename)    
+# summarize and save each file
+map(lazypreds, filenames) do r, file
+    FD.write_rasters(file, r; ncwritekw...) do x
+        # exclude this GCM as it has very high ECS
+        x2 = hasdim(x, :gcm) ? view(x, gcm = Not(At(UKESM1_0_LL))) : x
+        FD.f_and_dropdims(mean, x2; dims = Rasters.commondims(x2, (:gcm, :ghm)))
+    end
 end
-
-
