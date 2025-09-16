@@ -129,8 +129,8 @@ end
 
 
 # bivariate color map utils
-using GLMakie: Colors
-import GLMakie.Colors: RGBA, RGB
+using Makie: Colors
+import Makie.Colors: RGBA, RGB
 function rasters_to_cmap(x, y; cmap, nacol = RGB(1, 1, 1))
     fallback = convert(eltype(cmap), nacol)
     function f(xval, yval)
