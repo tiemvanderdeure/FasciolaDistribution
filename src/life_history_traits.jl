@@ -152,7 +152,7 @@ Turing.@model function infectionefficiency(
     priors = (
         Topt = Normal(20,5), 
         σ = Exponential(10), 
-        rmax = Uniform(0,1)#Uniform(0.01,0.99)
+        rmax = Uniform(0.01,0.99)
     )
 )
     Topt ~ priors.Topt
@@ -162,10 +162,6 @@ Turing.@model function infectionefficiency(
     rmax_sigma ~ censored(Exponential(1), 0, rmax_mean * (1 - rmax_mean) * 0.999)
     x = ((rmax_mean * (1 - rmax_mean) / rmax_sigma) - 1)
     α = rmax_mean * x
-    if iszero(α)
-        @show rmax_mean
-        @show rmax_sigma
-    end
     β = (1 - rmax_mean) * x
     rmaxes ~ Turing.filldist(Beta(α, β), ngroups_bin)
 
@@ -223,7 +219,7 @@ Turing.@model function hatching_success(
     rTmax ~ priors.r_Tmax
     rmax ~ Turing.filldist(priors.rmax, n_groups)
     y_hat = linear_sigmoid.(rTmax, decl_rate, Tmin, Tmax, T; minval = eps()) .* rmax[ids]
-    k ~ product_distribution(Binomial.(n, y_hat))
+    k ~ Turing.product_distribution(Binomial.(n, y_hat))
     return FixN(linear_sigmoid, rTmax, decl_rate, Tmin, Tmax)
 end
 
