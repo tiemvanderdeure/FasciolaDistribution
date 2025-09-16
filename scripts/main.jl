@@ -7,7 +7,7 @@ const FD = FasciolaDistribution # any function called with FD. is from this pack
 # this is where the data will be stored
 ENV["FASCIOLA_DATA_PATH"] = joinpath(RasterDataSources.rasterpath(), "FasciolaDistribution")
 
-isdir(datapath()) || mkdir(datapath())
+isdir(FD.datapath()) || mkdir(FD.datapath())
 
 global chunks = (X(256), Y(256))
 global force = false
@@ -118,6 +118,16 @@ write_rasters(joinpath(datapath(), "monthly_temperature_suitability"), temperatu
 
 temperature = nothing
 GC.gc()
+
+### Write posterior estimates for optimal transmission temperature to a text file
+open("images/optimal_temp_posterior.txt", "w") do io
+    map((:hepatica, :gigantica)) do s
+        ts = 10:0.01:40
+        hep_suitability = FD.life_cycle_model.(collect(ts)', gqs_rt[s])
+        optimal_temps = getindex.(Ref(ts), last.(findmax.(eachrow(hep_suitability))))
+        println(io, "optimal temp $s $(mean(optimal_temps)), 95% CI $(quantile(optimal_temps, [0.025, 0.975]))")
+    end
+end
 
 ########################################
 # Hydrological suitability Projections #
@@ -265,6 +275,13 @@ end |> NamedTuple{keys(occurrences)}
 # Finally put african and european galba together
 bgs = (galba = map(vcat, occ_bgs.galba_eu[2], occ_bgs.galba_af[2]), radix = occ_bgs.radix[2])
 ocs = (galba = map(vcat, occ_bgs.galba_eu[1], occ_bgs.galba_af[1]), radix = occ_bgs.radix[1])
+
+open("images/number_occurrences.txt","w") do io
+    map(keys(ocs)) do K
+        println(io, "total $K: $(length(ocs[K].geo))")
+    end
+    println(io, "Galba Africa: $(length(occ_bgs.galba_af[1].geo))")
+end
 
 #=
 # Predictor selection
