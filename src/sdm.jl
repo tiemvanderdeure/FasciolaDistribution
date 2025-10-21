@@ -65,15 +65,6 @@ end
 
 xy_from_df(df) = (X = df.X, Y = df.Y) |> Tables.rowtable |> unique
 
-function mypredict(m, bio; kw...)
-    bm = Rasters.boolmask(bio)
-    out = similar(first(layers(bio)))
-    out = rebuild(out; missingval = eltype(out)(NaN))
-    fill!(out, NaN)
-    @views out[bm] .= GLM.predict(m, bio[bm]; kw...)
-    return out
-end
-
 function _maybe_download_gbif()
     snaildatadir = joinpath(@__DIR__, "..", "data", "snails")
     for file in keys(GBIFids_files)

@@ -143,9 +143,6 @@ function rasters_to_cmap(x, y; cmap, nacol = RGB(1, 1, 1))
     # if only broadcast_dims had a strict=false
     @d f.(x, y) strict = false
 end
-function _get_color(x, y, xval, yval, cmap::AbstractArray{T}, missingcol::T) :: T where T
-
-end
 
 function bivariate_cmap_legend(
     gp, cmap; 

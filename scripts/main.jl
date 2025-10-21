@@ -15,7 +15,6 @@ global ncwritekw = (; chunks, force = true, deflatelevel = 2, shuffle = false)
 
 # Set some global variables
 # Region of interest
-# TODO: What is our region of interest??
 using NaturalEarth
 countries = naturalearth("admin_0_countries", 10)
 europe = countries.geometry[countries.CONTINENT .== "Europe" .&& countries.ADM0_A3 .!= "RUS"]
@@ -114,7 +113,7 @@ temperature_suitability = map(temperature) do t_avg
 end
 
 # takes ~2 minutes
-write_rasters(joinpath(datapath(), "monthly_temperature_suitability"), temperature_suitability; ncwritekw...)
+FD.write_rasters(joinpath(datapath(), "monthly_temperature_suitability"), temperature_suitability; ncwritekw...)
 
 temperature = nothing
 GC.gc()
@@ -170,7 +169,7 @@ discharge_to_suitability(x) = x / (one(x) + x)
 hydrological_suitability = map(x -> (FD.@lazyd discharge_to_suitability.(x)), discharge_res)
 
 # takes ~5 minutess
-write_rasters(joinpath(datapath(), "monthly_hydro_suitability"), hydrological_suitability; ncwritekw...)
+FD.write_rasters(joinpath(datapath(), "monthly_hydro_suitability"), hydrological_suitability; ncwritekw...)
 
 ##################################
 # Combined transmission strength #
@@ -183,7 +182,7 @@ monthly_transmission_suitability = map(temperature_suitability, hydrological_sui
 end
 
 # takes ~20 minutes
-write_rasters(joinpath(datapath(), "monthly_parasite_suitability"), monthly_transmission_suitability; ncwritekw...)
+FD.write_rasters(joinpath(datapath(), "monthly_parasite_suitability"), monthly_transmission_suitability; ncwritekw...)
 
 # Takes ~30 minutes
 for file in filter(startswith("monthly"), readdir(datapath()))
@@ -296,11 +295,16 @@ models = (; maxnet = MaxnetBinaryClassifier(features = "lqp", regularization_mul
 
 evs = map(ocs, bgs) do o, bg
     cvdata = SDM.sdmdata(o.bio, bg.bio; 
-        predictors = (:bio1, :bio7, :bio12, :bio17), resampler = SDM.CV(nfolds = 5))
+        predictors = (:bio1, :bio7, :bio12, :bio17), resampler = SDM.CV(rng = Xoshiro(0), nfolds = 5))
     m = SDM.sdm(cvdata, models)
     measures = (auc = SDM.auc, tss = BalancedAccuracy(adjusted = true))
     ev = SDM.evaluate(m; measures)
-    dropdims(mean(ev.stack.scores; dims = (:fold)); dims = (:model, :fold))
+    mach_evs = SDM.machine_evaluations(ev)
+    mapreduce(vcat, keys(mach_evs)) do k
+        mapreduce(vcat, keys(mach_evs[k])) do k2
+            (; dataset = k, measure = k2, scores = mean(mach_evs[k][k2]))
+        end
+    end
 end
 
 for k in keys(evs)
@@ -319,7 +323,7 @@ end
 host_suitability = map(predictors) do b
     # Map over bioclimatic data (current and future)
     map(models) do m
-        dropdims(SDM.predict(m, b); dims = (:fold, :model))    
+        dropdims(SDM.predict(m, b); dims = :Band)    
     end
 end;
 
