@@ -1,12 +1,11 @@
-using CairoMakie, FasciolaDistribution, Rasters, RasterDataSources, Statistics
+using CairoMakie, FasciolaDistribution, Rasters, RasterDataSources, Statistics, NaturalEarth
 import Dates: year
+import GeometryBasics
 const FD = FasciolaDistribution
 ENV["FASCIOLA_DATA_PATH"] = joinpath(RasterDataSources.rasterpath(), "FasciolaDistribution")
 
 global figurepath = joinpath("images")
 global supplementalspath = joinpath("images", "supplementary")
-
-const FD = FasciolaDistribution # any function called with FD. is from this package
 
 global snails = (:galba, :radix)
 global fasc_sps = (:hepatica, :gigantica)
@@ -15,10 +14,15 @@ global temperatures = 5.0:0.1:40.0 # temperatures to plot
 hydro_all, host_all, trans_all, temp_all, risk_all =
     FD.read_predictions((FD.gcms, FD.ghms, FD.dates, FD.ssps); lazy = true)
 
-hydro, host, trans, temp, risk =
-    FD.read_predictions(; prefix = "mean_")
+# load mean predictions, and get rid of a silly corner of Greenland
+greenland = GeometryBasics.Polygon(GeometryBasics.Rect2f((-25, 67), (10, 10)))
 
-#risk = mapmap((t, r) -> set(r, dims(t)), temp, risk)
+meanpreds = FD.read_predictions(; prefix = "mean_")
+
+hydro = map(x -> mask(x; with = greenland, invert = true), meanpreds[1])
+host, trans, temp, risk = 
+    map(x -> mapmap(x2 -> mask(x2; with = greenland, invert = true), x), meanpreds[2:end])
+
 FD.mapmap(risk) do x
     x[.!ismissing.(x) .&& isnan.(x)] .= missing
 end
@@ -26,15 +30,6 @@ end
 ext = extent(risk.current.hepatica)
 global asp = (ext.X[2]- ext.X[1]) / (ext.Y[2] - ext.Y[1]) # aspect ratio of maps!
 global px_per_unit = 5 # for high-res images
-
-#=
-_risk = map(temp, host) do t, h
-    map(values(t), values(h)) do t, h
-        sqrt.(t .* h)
-    end |> NamedTuple{keys(t)}
-end
-=#
-
 
 ### Figure 1 - life history posteriors
 as_label(x::Symbol) = replace(string(x), "_" => " ")
@@ -69,8 +64,7 @@ fig1 = let temperatures = 5.0:0.1:40.0,
         ls = plot_quantiles!(ax, temperatures, preds_normalized, color = colors[fasciola])
     end
     for i in 1:6 
-        Label(fig[(i-1) ÷ ncol + 1, mod1(i, ncol), TopLeft()], "($(Char(i+96)))", font = :bold,
-            tellheight = false, tellwidth = false, halign = :left, valign = :top)
+        FD.Label_subplot(fig[(i-1) ÷ ncol + 1, mod1(i, ncol), TopLeft()]; n = i, valign = :top)
     end
 
     # Legend
@@ -84,7 +78,6 @@ fig1 = let temperatures = 5.0:0.1:40.0,
 end
 save(joinpath(figurepath, "figure1.png"), fig1; px_per_unit)
 
-
 ### Figure 2 - current 
 # current conditions
 
@@ -95,12 +88,15 @@ fig2 = let fig = Figure(fontsize = 14, size = (900, 500))
         lowclip = :black
     )
 
+    ax1 = Axis(fig[1:2, 1], aspect = asp)
+    plot!(ax1, hydro.current; plot_kw...)
+    FD.Label_subplot(fig[1:2,1]; n = 1, valign = 0.75)
+    hidedecorations!(ax1); hidespines!(ax1)
+
     for i in 1:2
         snail = snails[i]
         fasc_sp = fasc_sps[i]
 
-        ax1 = Axis(fig[i, 1])
-        plot!(ax1, hydro.current; plot_kw...)
         ax2 = Axis(fig[i, 2])
         plot!(ax2, temp.current[fasc_sp]; plot_kw...)
         ax3 = Axis(fig[i, 3])
@@ -108,7 +104,9 @@ fig2 = let fig = Figure(fontsize = 14, size = (900, 500))
         ax4 = Axis(fig[i, 4])
         plot!(ax4, risk.current[fasc_sp]; plot_kw...)
 
-        for ax in (ax1, ax2, ax3, ax4)
+        for (j, ax) in enumerate((ax2, ax3, ax4))
+            FD.Label_subplot(fig[i,j+1], n = (i-1)*3+j+1)
+
             hidedecorations!(ax); hidespines!(ax)
         end
         
@@ -151,6 +149,7 @@ save(joinpath(figurepath, "figure2.png"), fig2; px_per_unit)
                 ax_current = Axis(fig[s, 1])
                 plot!(ax_current, data.current[s]; kws...)
                 hidedecorations!(ax_current); hidespines!(ax_current)
+                FD.Label_subplot(fig[s,1], ((s-1)*3+1))
 
                 for d in eachindex(dates)
                     ax = Axis(fig[s, d+1])
@@ -160,6 +159,7 @@ save(joinpath(figurepath, "figure2.png"), fig2; px_per_unit)
                         d1, d2 = val(Rasters.span(dates))[d, :]
                         Label(fig[0, d+1], "$(year(d1))-$(year(d2))"; tellwidth = false, font = :bold)
                     end
+                    FD.Label_subplot(fig[s,d+1]; n = (s-1)*3+d+1)
                 end
                 Label(fig[s, 0], species[s]; tellheight = false,rotation = pi/2, font = :bold_italic)
                 rowsize!(fig.layout, s, Aspect(1, 1/asp))
@@ -210,10 +210,10 @@ for ssp in ssps
 end
 
 ### Overlap of fasciola risk and livestock
-livestock = FD.get_livestock_data(; lazy = true)
-livestock = disaggregate(read(crop(livestock; to = ext, atol = 1e-4)), 2) # to match resolution of risk
+livestocklazy = FD.get_livestock_data(; lazy = true)
+livestock = disaggregate(read(crop(livestocklazy; to = ext, atol = 1e-4)), 2) # to match resolution of risk
 
-fig4 = let fig = Figure(fontsize = 10)
+fig5 = let fig = Figure(fontsize = 10)
     xticks = [0, 0.25, 0.5, 0.75, 1]
     yticks = [0, 10, 20, 50, Inf]
     tolochko_redblue = [
@@ -233,7 +233,10 @@ fig4 = let fig = Figure(fontsize = 10)
                     ax,
                     FD.rasters_to_cmap(risk[ti][fs][Ti = 2, ssp = At(SSP370)], livestock[l_sp]; cmap)
                 )           
-                hidedecorations!(ax); hidespines!(ax) 
+                hidedecorations!(ax); hidespines!(ax)
+
+                FD.Label_subplot(fig[l_idx, f_idx+ti_idx]; n = l_idx*4+f_idx+ti*2-6, valign = 1.02)
+
                 if ti == 1 && f_idx == 1
                     Label(fig[l_idx, 1, Left()], string(l_sp); tellheight = false, rotation = pi/2, font = :bold)
                 end
@@ -252,7 +255,7 @@ fig4 = let fig = Figure(fontsize = 10)
         fig[1:2, 5], cmap; 
         aspect = AxisAspect(1),
         yticksf = x -> isfinite(x) ? string(Int(x)) : ">$(Int(maximum(filter(isfinite, yticks))))",
-        ylabel = "Livestock density", xlabel = rich(rich("Fasciola", font = :italic), " risk"),
+        ylabel = "Livestock density (/km²)", xlabel = rich(rich("Fasciola", font = :italic), " risk"),
         xticklabelrotation = pi/4,
         alignmode = Mixed(bottom = 0) # hack to include protrusions so we don't get excess white space
     )
@@ -264,11 +267,11 @@ fig4 = let fig = Figure(fontsize = 10)
     resize_to_layout!(fig)
     fig 
 end;
-save(joinpath(figurepath, "figure4.png"), fig4, px_per_unit = 10)
+save(joinpath(figurepath, "figure5.png"), fig5, px_per_unit = 10)
 
 
 ### Overlap of Fasciola gigantica and Fasciola hepatica
-fig5 = let fig = Figure(fontsize = 12)
+fig4 = let fig = Figure(fontsize = 12)
 
     xticks = [0, 0.25, 0.5, 0.75, 1]
     yticks = copy(xticks)
@@ -285,6 +288,7 @@ fig5 = let fig = Figure(fontsize = 12)
     )  
     hidedecorations!(ax_current); hidespines!(ax_current)
     Label(fig[0, 1], "Current", tellwidth = false, font = :bold)
+    FD.Label_subplot(fig[1, 1]; n = 1)
 
     for d in eachindex(dates)
         ax = Axis(fig[1, d+1])
@@ -300,6 +304,7 @@ fig5 = let fig = Figure(fontsize = 12)
         # date label
         d1, d2 = val(Rasters.span(dates))[d, :]
         Label(fig[0, d+1], "$(year(d1))-$(year(d2))"; tellwidth = false, font = :bold)
+        FD.Label_subplot(fig[1, d+1]; n = d+1)
     end
     rowsize!(fig.layout, 1, Aspect(1, 1/asp))
     resize_to_layout!(fig)
@@ -307,10 +312,12 @@ fig5 = let fig = Figure(fontsize = 12)
     FD.bivariate_cmap_legend(
         fig[1, 4], cmap; 
         aspect = AxisAspect(1),
-        ylabel = "Fasciola gigantica", xlabel = "Fasciola hepatica",
+        ylabel = rich("Fasciola gigantica", font =:italic), xlabel = rich("Fasciola hepatica"; font = :italic),
         xticklabelrotation = pi/4,
-        alignmode = Mixed(bottom = 0) # hack to include protrusions so we don't get excess white space
+        alignmode = Mixed(bottom = 0), # hack to include protrusions so we don't get excess white space
     )
+
+    Label(fig[1,4], "Transmission risk", valign = 0.95, font = :bold)
 
     colsize!(fig.layout, 4, Relative(0.15))
 
@@ -319,7 +326,7 @@ fig5 = let fig = Figure(fontsize = 12)
     resize_to_layout!(fig)
     fig 
 end
-save(joinpath(figurepath, "figure5.png"), fig5; px_per_unit)
+save(joinpath(figurepath, "figure4.png"), fig4; px_per_unit)
 
 
 #########################

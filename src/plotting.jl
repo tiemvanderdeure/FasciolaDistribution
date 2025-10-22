@@ -178,3 +178,11 @@ function colors2d(x, y; colors)
     x2 = colors[1,2] * x + colors[1,1] * (1-x)
     return x2 * y + x1 * (1-y)
 end
+
+function Label_subplot(gp; n, kw...)
+    text = "$('A'+(n-1)))"
+    Label(
+        gp, text, font = :bold, tellheight = false, tellwidth = false, 
+        halign = :left, valign = 1.02; kw...
+    )
+end
