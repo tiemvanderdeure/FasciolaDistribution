@@ -35,7 +35,7 @@ global px_per_unit = 5 # for high-res images
 as_label(x::Symbol) = replace(string(x), "_" => " ")
 
 # plot for these temperatures
-fig1 = let temperatures = 5.0:0.1:40.0,
+fig2 = let temperatures = 5.0:0.1:40.0,
     colors = (hepatica = :blue, gigantica = :red),
     limits = (hatching_time = (0, 100), infection_efficiency = (0, 1), prepatent_period = (0, 200), cercarial_release = (0, 1500), hatching_success = (0, 1)),
     ylabels = (hatching_time = "days", infection_efficiency = "share", prepatent_period = "days", cercarial_release = "cercariae", hatching_success = "share")
@@ -60,7 +60,7 @@ fig1 = let temperatures = 5.0:0.1:40.0,
         preds_normalized = preds ./ maximum(preds, dims = 2)
         # plot and save
         ax = Axis(fig[2, 3], limits = (extrema(temperatures)..., 0, 1), 
-            title = "transmission strength", xlabel = "temperature (°C)", ylabel = "cercariae per egg (rel.)")
+            title = "transmission capacity", xlabel = "temperature (°C)", ylabel = "cercariae per egg (rel.)")
         ls = plot_quantiles!(ax, temperatures, preds_normalized, color = colors[fasciola])
     end
     for i in 1:6 
@@ -76,60 +76,74 @@ fig1 = let temperatures = 5.0:0.1:40.0,
 
     fig
 end
-save(joinpath(figurepath, "figure1.png"), fig1; px_per_unit)
+save(joinpath(figurepath, "figure2.png"), fig2; px_per_unit)
 
 ### Figure 2 - current 
 # current conditions
 
-fig2 = let fig = Figure(fontsize = 14, size = (900, 500))
+fig3 = let 
+    fig = Figure(fontsize = 14, size = (930, 770))
     plot_kw = (
         colorrange = (0,1),
         colormap = Reverse(:Spectral),
-        lowclip = :black
     )
 
-    ax1 = Axis(fig[1:2, 1], aspect = asp)
-    plot!(ax1, hydro.current; plot_kw...)
-    FD.Label_subplot(fig[1:2,1]; n = 1, valign = 0.75)
-    hidedecorations!(ax1); hidespines!(ax1)
+    components = GridLayout(fig[1,1])
+    riskindex = GridLayout(fig[2,1])
 
-    for i in 1:2
-        snail = snails[i]
-        fasc_sp = fasc_sps[i]
+    titlegap = 7
 
-        ax2 = Axis(fig[i, 2])
-        plot!(ax2, temp.current[fasc_sp]; plot_kw...)
-        ax3 = Axis(fig[i, 3])
-        plot!(ax3, host.current[snail]; plot_kw...)
-        ax4 = Axis(fig[i, 4])
-        plot!(ax4, risk.current[fasc_sp]; plot_kw...)
+    # plot all the components
+    ax_temp_hep = Axis(components[1, 1]; titlegap,
+        title = rich(rich("F. hepatica", font = :bold_italic), "\ntransmission capacity"), titlelineheight = 0)
+    plot!(ax_temp_hep, temp.current.hepatica; plot_kw...)
+    ax_host_hep = Axis(components[1, 2]; titlegap,
+        title = rich(rich("G. truncatula", font = :bold_italic), "\nclimatic suitability"))
+    plot!(ax_host_hep, host.current.galba; plot_kw...)
+    ax_hydro = Axis(components[1, 3]; titlegap, title = "Hydrological suitability")
+    plot!(ax_hydro, hydro.current; plot_kw...)
+    ax_temp_gig = Axis(components[1, 4]; titlegap,
+        title = rich(rich("F. gigantica", font = :bold_italic), "\ntransmission capacity"))
+    plot!(ax_temp_gig, temp.current.gigantica; plot_kw...)
+    ax_host_gig = Axis(components[1, 5]; titlegap,
+        title = rich(rich("R. natalensis", font = :bold_italic), "\nclimatic suitability"))
+    plot!(ax_host_gig, host.current.radix; plot_kw...)
 
-        for (j, ax) in enumerate((ax2, ax3, ax4))
-            FD.Label_subplot(fig[i,j+1], n = (i-1)*3+j+1)
-
-            hidedecorations!(ax); hidespines!(ax)
-        end
-        
-        Label(fig[i, 0], "Fasciola " * string(fasc_sp); tellheight = false,rotation = pi/2, font = :bold_italic)
-        rowsize!(fig.layout, i, Aspect(1, 1/asp))
+    # plot the actual risk indices
+    ax_risk_hep= Axis(riskindex[1, 1:3]; aspect= asp, titlesize = 16,
+        title = rich(rich("F. hepatica", font = :bold_italic), "\ntransmission risk"))
+    plot!(ax_risk_hep, risk.current.hepatica; plot_kw...)
+    ax_risk_gig = Axis(riskindex[1, 3:5]; aspect= asp, titlesize = 16,
+        title = rich(rich("F. gigantica", font = :bold_italic), "\ntransmission risk"))
+    plot!(ax_risk_gig, risk.current.gigantica; plot_kw...)
+    
+    for ax in fig.content
+        hidedecorations!(ax); hidespines!(ax)
     end
+    
+    for i in 1:5 FD.Label_subplot(components[1,i]; n= i, valign = 1.04) end
+    FD.Label_subplot(riskindex[1,1:3]; n=6, halign = 1/4)
+    FD.Label_subplot(riskindex[1,3:5]; n=7, halign = 1/4)
+    rowsize!(components, 1, Aspect(1, 1/asp))
+    
+    Colorbar(fig[1:2, 2]; height = Relative(0.7), valign = 0.4, plot_kw...)
 
-    labels = ["Hydrological suitability", "Temperature suitability", "Snail host suitability", "Transmission risk"]
-    for i in 1:4
-        Label(fig[0, i], labels[i]; tellwidth = false, font = :bold)
-    end
+    Label(fig[1, 0], "Risk index components", rotation = pi/2, 
+        tellheight = false, font = :bold, fontsize = 16)
+    Label(fig[2, 0], "Integrated risk index", rotation = pi/2, 
+        tellheight = false, font = :bold, fontsize = 16)
 
-    Colorbar(fig[1:2, 5]; plot_kw...)
     resize_to_layout!(fig)
+
     fig
 end
-save(joinpath(figurepath, "figure2.png"), fig2; px_per_unit)
+save(joinpath(figurepath, "figure3_noarrows.png"), fig3; px_per_unit) # add arrows manually
 
 ### Future predictions
 # generates figures for temperature, host suitability and risk
 # under SSP126 and SSP370
 # risk for SSP370 is in the main manuscript, all others are in the supplementals
-(figs3, figs4), (figs5, figs6), (figs2, fig3) = let 
+(figs3, figs4), (figs5, figs6), (figs2, fig4) = let 
     data = (temp, host, risk)
     legend_labels = ("Temperature suitability", "Snail host suitability", "Transmission risk")
     fasc_labels = ("F. hepatica", "F. gigantica")
@@ -173,7 +187,7 @@ save(joinpath(figurepath, "figure2.png"), fig2; px_per_unit)
         end
     end
 end;
-save(joinpath(figurepath, "figure3.png"), fig3; px_per_unit)
+save(joinpath(figurepath, "figure4.png"), fig4; px_per_unit)
 
 save(joinpath(supplementalspath, "forecast_ssp126.png"), figs2; px_per_unit)
 save(joinpath(supplementalspath, "temp_ssp126.png"), figs3; px_per_unit)
@@ -213,7 +227,7 @@ end
 livestocklazy = FD.get_livestock_data(; lazy = true)
 livestock = disaggregate(read(crop(livestocklazy; to = ext, atol = 1e-4)), 2) # to match resolution of risk
 
-fig5 = let fig = Figure(fontsize = 10)
+fig6 = let fig = Figure(fontsize = 10)
     xticks = [0, 0.25, 0.5, 0.75, 1]
     yticks = [0, 10, 20, 50, Inf]
     tolochko_redblue = [
@@ -267,11 +281,11 @@ fig5 = let fig = Figure(fontsize = 10)
     resize_to_layout!(fig)
     fig 
 end;
-save(joinpath(figurepath, "figure5.png"), fig5, px_per_unit = 10)
+save(joinpath(figurepath, "figure6.png"), fig6, px_per_unit = 10)
 
 
 ### Overlap of Fasciola gigantica and Fasciola hepatica
-fig4 = let fig = Figure(fontsize = 12)
+fig5 = let fig = Figure(fontsize = 12)
 
     xticks = [0, 0.25, 0.5, 0.75, 1]
     yticks = copy(xticks)
@@ -326,7 +340,7 @@ fig4 = let fig = Figure(fontsize = 12)
     resize_to_layout!(fig)
     fig 
 end
-save(joinpath(figurepath, "figure4.png"), fig4; px_per_unit)
+save(joinpath(figurepath, "figure5.png"), fig5; px_per_unit)
 
 
 #########################
